@@ -13,9 +13,9 @@ public class MainMenuController {
     public void changeScreen(ActionEvent event) throws IOException {
         final Node source = (Node)event.getSource();
         String id = source.getId();
-        Parent gameScreen = FXMLLoader.load(getClass().getResource("playScreen.fxml"));
+        //Parent gameScreen = FXMLLoader.load(getClass().getResource("playScreen.fxml"));
         if(id.equals("startGame")) {
-            Game game = new Game(new Level(1,gameScreen),event);
+            Game game = new Game(new Level(1),event);
         }
     }
 }
