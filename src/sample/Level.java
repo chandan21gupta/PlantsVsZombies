@@ -17,9 +17,7 @@ public class Level {
             JonSnow jon = new JonSnow();
             String url = jon.getName();
             try {
-                Image image = new Image(new FileInputStream(url));
-                ImageView imageView = new ImageView(image);
-                imageView.setPreserveRatio(true);
+
             }
             catch(Exception e) {
 
