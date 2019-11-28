@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1141.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainMenuController">
+    <children>
+        <ImageView fitHeight="760.0" fitWidth="1621.0" layoutX="-472.0">
+            <image>
+                <Image url="@../images/background@2x.png" />
+            </image>
+        </ImageView>
+        <Button id = "startGame" fx:id="startGameButton" layoutX="812.0" layoutY="62.0" mnemonicParsing="false" onAction="#changeScreen" prefHeight="0.0" prefWidth="323.0" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView fitHeight="143.0" fitWidth="307.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/gameButton/Asset 1@2x.png" />
+                    </image>
+                </ImageView>
+            </graphic></Button>
+        <Button id="loadGame" fx:id="loadBut" layoutX="812.0" layoutY="231.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="124.0" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView fx:id="loadGame" fitHeight="144.0" fitWidth="310.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/gameButton/Asset 2@2x.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button id="exit" fx:id="exitBut" layoutX="812.0" layoutY="401.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="124.0" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView fx:id="exitGame" fitHeight="144.0" fitWidth="309.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/gameButton/Asset 3@2x.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>
