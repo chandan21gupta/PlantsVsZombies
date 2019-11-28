@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainMenuController {
+
     public void changeScreen(ActionEvent event) throws IOException {
         final Node source = (Node)event.getSource();
         String id = source.getId();
