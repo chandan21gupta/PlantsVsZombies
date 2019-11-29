@@ -196,8 +196,6 @@ public class Level_One_Controller extends Application implements Initializable, 
         else if (z==1){
             imageView.setX(286);
             imageView.setY(40);
-
-            //gridX.add(imageView,2,0);
         }
         else if (z==2){
             imageView.setX(362);
@@ -216,6 +214,15 @@ public class Level_One_Controller extends Application implements Initializable, 
         }
         gameScreen.getChildren().add(imageView);
         advices.add(advice);
+        TranslateTransition translate = new TranslateTransition();
+        translate.setDuration(Duration.seconds(5));
+        translate.setToY(371);
+        translate.setNode(imageView);
+        translate.setByY(imageView.getY());
+        //translate.setToX();
+        //translate.setCycleCount(500);
+        //System.out.println("Translating...");
+        translate.play();
     }
 
     @Override
@@ -246,7 +253,6 @@ public class Level_One_Controller extends Application implements Initializable, 
 //                        generateZombies();
                     }
                 });
-
             }
         }, 0, seconds*1000);
         t.schedule(new TimerTask() {
@@ -267,7 +273,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     @Override
     public void start(Stage stage) throws Exception {
-        TranslateTransition translate = new TranslateTransition();
+        //TranslateTransition translate = new TranslateTransition();
     }
 }
 
