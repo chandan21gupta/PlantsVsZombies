@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
