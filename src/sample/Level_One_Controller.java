@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.animation.TranslateTransition;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
@@ -7,17 +9,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 
 
 class InvalidArguement extends Exception{
     public InvalidArguement(String message){super(message);}
 }
-
-
 
 public class Level_One_Controller extends AnimationTimer  {
     @FXML
@@ -26,9 +28,10 @@ public class Level_One_Controller extends AnimationTimer  {
     String current_plant = null;
     public void generatePlant(MouseEvent event) {
        current_plant = event.getPickResult().getIntersectedNode().getId();
-        System.out.println(current_plant);
-        this.startAnimation();
+       System.out.println(current_plant);
+       this.startAnimation();
     }
+
 
 
     public void addPlant(MouseEvent event) throws URISyntaxException {
@@ -128,14 +131,18 @@ public class Level_One_Controller extends AnimationTimer  {
     }
 
     public void generateZombies() {
-        if(this.zombieCount <= 20 && this.zombieCount >=0) {
+        if(this.zombieCount <= 20 && this.zombieCount >=19) {
             Zombies zombie = new NormalZombie(1);
-            System.out.println(zombie.getName());
+            TranslateTransition trans = new TranslateTransition(Duration.seconds(2));
+            trans.setFromX(345);
+            trans.setToX(35.6);
+            trans.setCycleCount(TranslateTransition.INDEFINITE);
+            trans.play();
             zombieCount--;
         }
         else {
             this.stop();
         }
     }
-    }
+}
 
