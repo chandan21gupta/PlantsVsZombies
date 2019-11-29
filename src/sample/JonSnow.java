@@ -4,7 +4,7 @@ public class JonSnow implements Plant{
 
     private float health = 100;
     private float damage = 10;
-    private final String img = "@../images/chars/johnSnow.png";
+    private final String img = "src/sample/johnSnow.png";
 
     public float getHealth() {
         return this.health;
