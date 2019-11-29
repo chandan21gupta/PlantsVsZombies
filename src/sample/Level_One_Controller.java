@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
@@ -31,11 +32,15 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
     @FXML
     public GridPane gridX;
 
+    @FXML
+    public AnchorPane gameScreen;
+
     Timer timer;
     int timerX = 0;
     int seconds = 10;
 
     ArrayList<Zombies> zombies = new ArrayList<>();
+    ArrayList<Advice> advices = new ArrayList<>();
 
     int zombieCount = 20;
 
@@ -48,8 +53,8 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
     }
 
     public void onClickX(MouseEvent event){
-//        System.out.println("x: " + event.getX());
-//        System.out.println("y: "+ event.getY());
+        System.out.println("x: " + event.getX());
+        System.out.println("y: "+ event.getY());
     }
 
     public void addPlant(MouseEvent event) throws URISyntaxException {
@@ -66,8 +71,8 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
             File file = new File(img_url);
             img_url = file.toURI().toURL().toExternalForm();
             image = new Image(img_url);
-            System.out.println(image.getUrl());
-            System.out.println(image.getHeight());
+//            System.out.println(image.getUrl());
+//            System.out.println(image.getHeight());
         }
         catch(Exception e) {
             //do nothing
@@ -75,17 +80,17 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
 
         ImageView imageView = new ImageView();
         imageView.setImage(image);
-        System.out.println(imageView.getImage());
+        //System.out.println(imageView.getImage());
         int[] value;
         try {
             value = getBox(event.getX(), event.getY());
             double x = event.getX();
             double y = event.getY();
-            System.out.println(value[0] + " " + value[1]);
-            System.out.println(x + " " + y);
+            //System.out.println(value[0] + " " + value[1]);
+            //System.out.println(x + " " + y);
             imageView.setFitHeight(60);
             imageView.setFitWidth(30);
-            System.out.println(gridX);
+            //System.out.println(gridX);
             gridX.add(imageView, value[0], value[1]);
         }
         catch (InvalidArguement invalidArguement) {
@@ -95,44 +100,42 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
         current_plant = null;
     }
     public int[] getBox ( double x, double y) throws InvalidArguement {
-            int cordX = 0;
-            int cordY = 0;
-            int[] vals = new int[2];
+        int cordX = 0;
+        int cordY = 0;
+        int[] vals = new int[2];
 
-            if (y <= 56.0 & y > 0.0) {
-                cordY = 0;
-            } else if (y <= 120.0) {
-                cordY = 1;
-            } else if (y <= 180.0) {
-                cordY = 2;
-            } else if (y <= 240.0) {
-                cordY = 3;
-            } else if (y < 300.0) {
-                cordY = 4;
-            } else {
-                throw new InvalidArguement("Invalid");
-            }
-
-            if (x <= 71.0 & x > 0.0) {
-                cordX = 0;
-            } else if (x <= 151.0) {
-                cordX = 1;
-            } else if (x <= 228.0) {
-                cordX = 2;
-            } else if (x <= 303.0) {
-                cordX = 3;
-            } else if (x <= 378.0) {
-                cordX = 4;
-            } else if (x <= 445.0) {
-                cordX = 5;
-            } else throw new InvalidArguement("Invalid");
-
-            vals[0] = cordX;
-            vals[1] = cordY;
-            return vals;
+        if (y <= 56.0 & y > 0.0) {
+            cordY = 0;
+        } else if (y <= 120.0) {
+            cordY = 1;
+        } else if (y <= 180.0) {
+            cordY = 2;
+        } else if (y <= 240.0) {
+            cordY = 3;
+        } else if (y < 300.0) {
+            cordY = 4;
+        } else {
+            throw new InvalidArguement("Invalid");
         }
 
+        if (x <= 71.0 & x > 0.0) {
+            cordX = 0;
+        } else if (x <= 151.0) {
+            cordX = 1;
+        } else if (x <= 228.0) {
+            cordX = 2;
+        } else if (x <= 303.0) {
+            cordX = 3;
+        } else if (x <= 378.0) {
+            cordX = 4;
+        } else if (x <= 445.0) {
+            cordX = 5;
+        } else throw new InvalidArguement("Invalid");
 
+        vals[0] = cordX;
+        vals[1] = cordY;
+        return vals;
+    }
 
     public void generateZombies() {
         String img_url = null;
@@ -143,7 +146,7 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
             File file = new File(img_url);
 
             img_url = file.toURI().toURL().toExternalForm();
-            System.out.println(img_url);
+            //System.out.println(img_url);
             image = new Image(img_url);
         }
         catch(Exception e) {
@@ -153,7 +156,7 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
         imageView.setImage(image);
         imageView.setFitHeight(60);
         imageView.setFitWidth(30);
-        System.out.println(imageView.getImage());
+        //System.out.println(imageView.getImage());
         int z = r.nextInt(5);
         if (z==0){
             gridX.add(imageView,8,0);
@@ -183,6 +186,54 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
 
     }
 
+    public void generateAdvice() {
+        String img_url = null;
+        Image image = null;
+        Advice advice = new Advice();
+        img_url = advice.getName();
+        try {
+            File file = new File(img_url);
+
+            img_url = file.toURI().toURL().toExternalForm();
+            //System.out.println(img_url);
+            image = new Image(img_url);
+        }
+        catch(Exception e) {
+            //do nothing
+        }
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(30);
+        int z = r.nextInt(5);
+        if (z==0){
+            imageView.setX(212);
+            imageView.setY(15);
+        }
+        else if (z==1){
+            imageView.setX(286);
+            imageView.setY(40);
+
+            //gridX.add(imageView,2,0);
+        }
+        else if (z==2){
+            imageView.setX(362);
+            imageView.setY(51);
+            //gridX.add(imageView,3,0);
+        }
+        else if (z==3){
+            imageView.setX(371);
+            imageView.setY(47);
+            //gridX.add(imageView,4,0);
+        }
+        else{
+            imageView.setX(508);
+            imageView.setY(42);
+            //gridX.add(imageView,5,0);
+        }
+        gameScreen.getChildren().add(imageView);
+        advices.add(advice);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -206,14 +257,13 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
                     else{
                         System.out.println(timerX);
                         System.out.println(seconds);
+                        generateAdvice();
                         generateZombies();
                     }
                 });
 
             }
         }, 0, seconds*1000);
-
-
 
     }
 
