@@ -3,6 +3,7 @@ package sample;
 public class NormalZombie implements Zombies{
     private float health = 100;
     private float damage = 10;
+    private float speed = 10;
     private int levelX = 1;
     private final String imgL1 = "@../images/chars/nightKingArmy1.png";
     private final String imgL2 = "@../images/chars/dannyArmy1.png";

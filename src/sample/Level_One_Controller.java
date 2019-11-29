@@ -12,6 +12,7 @@ public class Level_One_Controller {
     String current_plant = null;
     public void generatePlant(MouseEvent event) {
        current_plant = event.getPickResult().getIntersectedNode().getId();
+        System.out.println(current_plant);
     }
 
     public void addPlant(MouseEvent event) {
