@@ -2,6 +2,7 @@ package sample;
 
 import javafx.animation.TranslateTransition;
 //import javafx.application.Application;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -27,15 +29,15 @@ class InvalidArguement extends Exception
     public InvalidArguement(String message){super(message);}
 }
 
-public class Level_One_Controller extends AnimationTimer implements Initializable, Runnable  {
+public class Level_One_Controller extends Application implements Initializable, Runnable  {
 
     @FXML
     public GridPane gridX;
-
     @FXML
     public AnchorPane gameScreen;
 
     Timer timer;
+    boolean flag;
     int timerX = 0;
     int seconds = 10;
 
@@ -53,8 +55,8 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
     }
 
     public void onClickX(MouseEvent event){
-        System.out.println("x: " + event.getX());
-        System.out.println("y: "+ event.getY());
+//        System.out.println("x: " + event.getX());
+//        System.out.println("y: "+ event.getY());
     }
 
     public void addPlant(MouseEvent event) throws URISyntaxException {
@@ -137,52 +139,45 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
         return vals;
     }
 
-    public void generateZombies() {
+    public void generateZombies(int a) {
         String img_url = null;
         Image image = null;
-        Zombies zombie = new NormalZombie(1);
-        img_url = zombie.getName();
-        try {
-            File file = new File(img_url);
-
-            img_url = file.toURI().toURL().toExternalForm();
-            //System.out.println(img_url);
-            image = new Image(img_url);
+        Zombies zombie;
+        if (a==0){
+            zombie = new NormalZombie(1);
         }
-        catch(Exception e) {
-            //do nothing
-        }
-        ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        imageView.setFitHeight(60);
-        imageView.setFitWidth(30);
-        //System.out.println(imageView.getImage());
-        int z = r.nextInt(5);
-        if (z==0){
-            gridX.add(imageView,8,0);
-        }
-        else if (z==1){
-            gridX.add(imageView,8,1);
-        }
-        else if (z==2){
-            gridX.add(imageView,8,2);
-        }
-        else if (z==3){
-            gridX.add(imageView,8,3);
+        else if (a==1){
+            zombie = new NormalZombie1(1);
         }
         else{
-            gridX.add(imageView,8,4);
+            zombie = new NormalZombie2(1);
         }
 
-//        System.out.println(zombie.getName());
+        if (timerX >=110 & !flag){
+            zombie = new SpecialZombie(1);
+            flag = true;
+        }
+
+//        ImageView imageView = zombie.getImage();
+//        System.out.println(imageView.getImage());
+        int z = r.nextInt(5);
+        if (z==0){
+            gridX.add(zombie.getImage(),8,0);
+        }
+        else if (z==1){
+            gridX.add(zombie.getImage(),8,1);
+        }
+        else if (z==2){
+            gridX.add(zombie.getImage(),8,2);
+        }
+        else if (z==3){
+            gridX.add(zombie.getImage(),8,3);
+        }
+        else{
+            gridX.add(zombie.getImage(),8,4);
+        }
         zombies.add(zombie);
-//        TranslateTransition trans = new TranslateTransition(Duration.seconds(2));
-//        trans.setFromX(345);
-//        trans.setToX(35.6);
-//        trans.setCycleCount(TranslateTransition.INDEFINITE);
-//        trans.play();
         System.out.println("zombie");
-//        zombieCount--;
 
     }
 
@@ -257,14 +252,24 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
                     else{
                         System.out.println(timerX);
                         System.out.println(seconds);
+                        int a = r.nextInt(3);
+                        generateZombies(a);
                         generateAdvice();
-                        generateZombies();
+//                        generateZombies();
                     }
                 });
 
             }
         }, 0, seconds*1000);
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(()->{
 
+                });
+
+            }
+        }, 0, seconds*1000);
     }
 
     @Override
@@ -273,8 +278,8 @@ public class Level_One_Controller extends AnimationTimer implements Initializabl
     }
 
     @Override
-    public void handle(long l) {
-
+    public void start(Stage stage) throws Exception {
+        TranslateTransition translate = new TranslateTransition();
     }
 }
 

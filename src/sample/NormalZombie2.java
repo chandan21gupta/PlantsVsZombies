@@ -5,18 +5,18 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
-public class NormalZombie implements Zombies{
-    private float health = 100;
-    private float damage = 10;
-    private int speed = 10;
-    private int levelX = 1;
+public class NormalZombie2 implements Zombies{
+    private float health = 250;
+    private float damage = 22;
+    private int speed = 14;
     private int X;
     private int Y;
-    private final String imgL1 = "src/images/chars/nightKingArmy1.png";
-    private final String imgL2 = "src/images/chars/dannyArmy1.png";
-    private final String imgL3 = "src/images/chars/cersieArmy1.png";
+    private int levelX;
+    private final String imgL1 = "src/images/chars/nightKingArmy2.png";
+    private final String imgL2 = "src/images/chars/dannyArmy3.png";
+    private final String imgL3 = "src/images/chars/cersieArmy3.png";
 
-    public NormalZombie(int x){
+    public NormalZombie2(int x){
         levelX = x;
     }
 
@@ -44,7 +44,7 @@ public class NormalZombie implements Zombies{
 
     @Override
     public void setX(int a) {
-        X=X-a;
+        X = X-a;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class NormalZombie implements Zombies{
 
     @Override
     public void setY(int a) {
-        Y=Y-a;
+        Y = Y-a;
     }
 
     public float getDamage() {
@@ -98,4 +98,5 @@ public class NormalZombie implements Zombies{
         imageView.setFitWidth(40);
         return imageView;
     }
+
 }
