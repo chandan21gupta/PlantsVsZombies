@@ -1,10 +1,11 @@
 package sample;
 
-public interface Plant {
+public interface Zombies {
     public float getHealth();
     public void setHealth(float health);
     public float getDamage();
     public void setDamage(float damage);
     public String getName();
-    public void attack(Zombies Z);
+    public void attack(Plant P);
+    public void move();
 }
