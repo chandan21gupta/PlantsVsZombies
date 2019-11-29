@@ -15,5 +15,5 @@ public interface Zombies {
     public void setX(int a);
     public int getY();
     public void setY(int a);
-    public ImageView getImage();
+    public ImageView getImage(int z);
 }

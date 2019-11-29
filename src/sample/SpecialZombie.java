@@ -1,6 +1,9 @@
 package sample;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.io.File;
 
 public class SpecialZombie implements Zombies{
 
@@ -8,6 +11,7 @@ public class SpecialZombie implements Zombies{
     private float damage = 12;
     private int speed = 5;
     private int levelX = 1;
+    private ImageView imageView = new ImageView();
     private int X;
     private int Y;
     private final String imgL1 = "src/images/chars/nightKingArmy1.png";
@@ -55,8 +59,44 @@ public class SpecialZombie implements Zombies{
     }
 
     @Override
-    public ImageView getImage() {
-        return null;
+    public ImageView getImage(int z){
+        String img_url = null;
+        Image image = null;
+        img_url = this.getName();
+        try {
+            File file = new File(img_url);
+
+            img_url = file.toURI().toURL().toExternalForm();
+            System.out.println(img_url);
+            image = new Image(img_url);
+        }
+        catch(Exception e) {
+            //do nothing
+        }
+        imageView.setImage(image);
+        imageView.setFitHeight(70);
+        imageView.setFitWidth(40);
+        setCoordinates(z);
+        return imageView;
+    }
+
+    private void setCoordinates(int z){
+        imageView.setX((double) 690);
+        if (z==0){
+            imageView.setY((double) 148);
+        }
+        else if(z==1){
+            imageView.setY((double) 213);
+        }
+        else if(z==2){
+            imageView.setY((double) 271);
+        }
+        else if(z==3){
+            imageView.setY((double) 321);
+        }
+        else if(z==4){
+            imageView.setY((double) 392);
+        }
     }
 
     public float getDamage() {

@@ -12,6 +12,7 @@ public class NormalZombie2 implements Zombies{
     private int X;
     private int Y;
     private int levelX;
+    private ImageView imageView = new ImageView();
     private final String imgL1 = "src/images/chars/nightKingArmy2.png";
     private final String imgL2 = "src/images/chars/dannyArmy3.png";
     private final String imgL3 = "src/images/chars/cersieArmy3.png";
@@ -78,7 +79,7 @@ public class NormalZombie2 implements Zombies{
         else return this.imgL1;
     }
 
-    public ImageView getImage(){
+    public ImageView getImage(int z){
         String img_url = null;
         Image image = null;
         img_url = this.getName();
@@ -92,11 +93,31 @@ public class NormalZombie2 implements Zombies{
         catch(Exception e) {
             //do nothing
         }
-        ImageView imageView = new ImageView();
         imageView.setImage(image);
-        imageView.setFitHeight(70);
+        imageView.setFitHeight(66);
         imageView.setFitWidth(40);
+        setCoordinates(z);
         return imageView;
+    }
+
+    private void setCoordinates(int z){
+        imageView.setX((double) 690);
+        if (z==0){
+            imageView.setY((double) 90);
+        }
+        else if (z==1){
+            imageView.setY((double) 148);
+        }
+        else if(z==2){
+            imageView.setY((double) 213);
+        }
+        else if(z==3){
+            imageView.setY((double) 271);
+        }
+        else{
+            imageView.setY((double) 331);
+        }
+        System.out.println(imageView.getY());
     }
 
 }

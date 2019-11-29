@@ -39,7 +39,7 @@ public class Level_One_Controller extends Application implements Initializable, 
     Timer timer;
     boolean flag;
     int timerX = 0;
-    int seconds = 10;
+    int seconds = 5;
 
     ArrayList<Zombies> zombies = new ArrayList<>();
     ArrayList<Advice> advices = new ArrayList<>();
@@ -55,8 +55,8 @@ public class Level_One_Controller extends Application implements Initializable, 
     }
 
     public void onClickX(MouseEvent event){
-//        System.out.println("x: " + event.getX());
-//        System.out.println("y: "+ event.getY());
+        System.out.println("x: " + event.getX());
+        System.out.println("y: "+ event.getY());
     }
 
     public void addPlant(MouseEvent event) throws URISyntaxException {
@@ -93,6 +93,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             imageView.setFitHeight(60);
             imageView.setFitWidth(30);
             //System.out.println(gridX);
+//            gameScreen
             gridX.add(imageView, value[0], value[1]);
         }
         catch (InvalidArguement invalidArguement) {
@@ -141,7 +142,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     public void generateZombies(int a) {
         String img_url = null;
-        Image image = null;
+        ImageView image = null;
         Zombies zombie;
         if (a==0){
             zombie = new NormalZombie(1);
@@ -161,21 +162,8 @@ public class Level_One_Controller extends Application implements Initializable, 
 //        ImageView imageView = zombie.getImage();
 //        System.out.println(imageView.getImage());
         int z = r.nextInt(5);
-        if (z==0){
-            gridX.add(zombie.getImage(),8,0);
-        }
-        else if (z==1){
-            gridX.add(zombie.getImage(),8,1);
-        }
-        else if (z==2){
-            gridX.add(zombie.getImage(),8,2);
-        }
-        else if (z==3){
-            gridX.add(zombie.getImage(),8,3);
-        }
-        else{
-            gridX.add(zombie.getImage(),8,4);
-        }
+        image = zombie.getImage(z);
+        gameScreen.getChildren().add(image);
         zombies.add(zombie);
         System.out.println("zombie");
 
@@ -241,7 +229,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             public void run() {
                 Platform.runLater(()->{
                     if (timerX >= 50){
-                        seconds = 7;
+                        seconds = 2;
                     }
                     timerX += seconds;
                     if (timerX>=150){
