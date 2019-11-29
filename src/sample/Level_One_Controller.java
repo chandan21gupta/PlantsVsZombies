@@ -1,10 +1,12 @@
 package sample;
 
 import javafx.animation.TranslateTransition;
-import javafx.application.Application;
+//import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
-import javafx.scene.Node;
+//import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,27 +14,43 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
+import java.net.URL;
+import java.util.*;
+//import java.nio.file.Path;
 
 
-class InvalidArguement extends Exception{
+class InvalidArguement extends Exception
+{
     public InvalidArguement(String message){super(message);}
 }
 
-public class Level_One_Controller extends AnimationTimer  {
+public class Level_One_Controller extends AnimationTimer implements Initializable, Runnable  {
+
     @FXML
     public GridPane gridX;
+
+    Timer timer;
+    int timerX = 0;
+    int seconds = 10;
+
+    ArrayList<Zombies> zombies = new ArrayList<>();
+
     int zombieCount = 20;
+
     String current_plant = null;
+    Random r = new Random();
     public void generatePlant(MouseEvent event) {
        current_plant = event.getPickResult().getIntersectedNode().getId();
-       System.out.println(current_plant);
-       this.startAnimation();
+//       System.out.println(current_plant);
+//       this.startAnimation();
     }
 
-
+    public void onClickX(MouseEvent event){
+//        System.out.println("x: " + event.getX());
+//        System.out.println("y: "+ event.getY());
+    }
 
     public void addPlant(MouseEvent event) throws URISyntaxException {
         if (current_plant == null)
@@ -47,44 +65,36 @@ public class Level_One_Controller extends AnimationTimer  {
         try {
             File file = new File(img_url);
             img_url = file.toURI().toURL().toExternalForm();
-//            System.out.println(img_url);
             image = new Image(img_url);
             System.out.println(image.getUrl());
-//            System.out.println(img_url);
             System.out.println(image.getHeight());
         }
         catch(Exception e) {
             //do nothing
         }
 
-//        imageView.setImage(image);
-            ImageView imageView = new ImageView();
-            imageView.setImage(image);
-            System.out.println(imageView.getImage());
-            int[] value;
-            try {
-                value = getBox(event.getX(), event.getY());
-                double x = event.getX();
-                double y = event.getY();
-                System.out.println(value[0] + " " + value[1]);
-                System.out.println(x + " " + y);
-//            imageView.setX(value[0]);
-//            imageView.setY(value[1]);
-                imageView.setFitHeight(60);
-                imageView.setFitWidth(30);
-                System.out.println(gridX);
-                gridX.add(imageView, value[0], value[1]);
-
-//            current_plant = null;
-            } catch (InvalidArguement invalidArguement) {
-                System.out.println("error");
-            }
-
-            current_plant = null;
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        System.out.println(imageView.getImage());
+        int[] value;
+        try {
+            value = getBox(event.getX(), event.getY());
+            double x = event.getX();
+            double y = event.getY();
+            System.out.println(value[0] + " " + value[1]);
+            System.out.println(x + " " + y);
+            imageView.setFitHeight(60);
+            imageView.setFitWidth(30);
+            System.out.println(gridX);
+            gridX.add(imageView, value[0], value[1]);
+        }
+        catch (InvalidArguement invalidArguement) {
+            System.out.println("error");
         }
 
-
-        public int[] getBox ( double x, double y) throws InvalidArguement {
+        current_plant = null;
+    }
+    public int[] getBox ( double x, double y) throws InvalidArguement {
             int cordX = 0;
             int cordY = 0;
             int[] vals = new int[2];
@@ -122,27 +132,99 @@ public class Level_One_Controller extends AnimationTimer  {
             return vals;
         }
 
-    public void startAnimation() {
-        this.start();
-    }
 
-    public void handle(long now) {
-        generateZombies();
-    }
 
     public void generateZombies() {
-        if(this.zombieCount <= 20 && this.zombieCount >=19) {
-            Zombies zombie = new NormalZombie(1);
-            TranslateTransition trans = new TranslateTransition(Duration.seconds(2));
-            trans.setFromX(345);
-            trans.setToX(35.6);
-            trans.setCycleCount(TranslateTransition.INDEFINITE);
-            trans.play();
-            zombieCount--;
+        String img_url = null;
+        Image image = null;
+        Zombies zombie = new NormalZombie(1);
+        img_url = zombie.getName();
+        try {
+            File file = new File(img_url);
+
+            img_url = file.toURI().toURL().toExternalForm();
+            System.out.println(img_url);
+            image = new Image(img_url);
         }
-        else {
-            this.stop();
+        catch(Exception e) {
+            //do nothing
         }
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(30);
+        System.out.println(imageView.getImage());
+        int z = r.nextInt(5);
+        if (z==0){
+            gridX.add(imageView,8,0);
+        }
+        else if (z==1){
+            gridX.add(imageView,8,1);
+        }
+        else if (z==2){
+            gridX.add(imageView,8,2);
+        }
+        else if (z==3){
+            gridX.add(imageView,8,3);
+        }
+        else{
+            gridX.add(imageView,8,4);
+        }
+
+//        System.out.println(zombie.getName());
+        zombies.add(zombie);
+//        TranslateTransition trans = new TranslateTransition(Duration.seconds(2));
+//        trans.setFromX(345);
+//        trans.setToX(35.6);
+//        trans.setCycleCount(TranslateTransition.INDEFINITE);
+//        trans.play();
+        System.out.println("zombie");
+//        zombieCount--;
+
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        int seconds = 0;
+        Timer t = new Timer();
+//        seconds = 10;
+//        int finalSeconds = seconds;
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(()->{
+                    if (timerX >= 50){
+                        seconds = 7;
+                    }
+                    timerX += seconds;
+                    if (timerX>=150){
+
+                        t.cancel();
+//                    t.notifyAll();
+                    }
+                    else{
+                        System.out.println(timerX);
+                        System.out.println(seconds);
+                        generateZombies();
+                    }
+                });
+
+            }
+        }, 0, seconds*1000);
+
+
+
+    }
+
+    @Override
+    public void run() {
+
+    }
+
+    @Override
+    public void handle(long l) {
+
     }
 }
 
