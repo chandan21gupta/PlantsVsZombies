@@ -8,7 +8,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
 //import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +29,74 @@ import java.net.URL;
 import java.util.*;
 //import java.nio.file.Path;
 
+class WinnerException extends Exception {
+    public WinnerException(String s) {
+        super(s);
+    }
+}
+
+class LoserException extends Exception {
+    public LoserException(String s) {
+        super(s);
+    }
+}
+
+class MyTimer implements java.lang.Runnable{
+
+    int level;
+    ArrayList<Zombies> zombies = new ArrayList<Zombies>();
+    MyTimer(int level,ArrayList<Zombies> zombies) {
+        this.level = level;
+        this.zombies = zombies;
+    }
+
+    @Override
+    public void run() {
+        this.runTimer();
+    }
+
+    public void runTimer(){
+        int i = 0;
+        if(this.level == 1) {
+            i = 2;
+        }
+        else if(this.level == 2) {
+            i = 120;
+        }
+        else if(this.level == 3) {
+            i = 180;
+        }
+        else if(this.level == 4) {
+            i = 240;
+        }
+        else {
+            i = 300;
+        }
+        while (i>0){
+            //System.out.println("Remaining: "+i+" seconds");
+            try {
+                i--;
+                Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
+                if(i == 0 && zombies.size() == 0) {
+                    throw new WinnerException("You Won");
+                }
+                else if(i == 0 && zombies.size() > 0) {
+                    throw new LoserException("You Lose");
+                }
+            }
+            catch (WinnerException e) {
+                //I don't think you need to do anything for your particular problem
+            }
+            catch (LoserException e) {
+                System.out.println(e.getMessage());
+            }
+            catch(InterruptedException e) {
+                //do nothing
+            }
+        }
+    }
+
+}
 
 class InvalidArguement extends Exception
 {
@@ -55,7 +127,6 @@ public class Level_One_Controller extends Application implements Initializable, 
         this.deserialized = a;
         this.level = level;
     }
-
 
     public ArrayList<Zombies> zombies = new ArrayList<>();
     public ArrayList<Advice> advices = new ArrayList<>();
@@ -473,6 +544,8 @@ public class Level_One_Controller extends Application implements Initializable, 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        Thread thread = new Thread(new MyTimer(level,zombies));
+        thread.start();
 
         if (deserialized==1){
             desearlize();
@@ -490,9 +563,6 @@ public class Level_One_Controller extends Application implements Initializable, 
 
             });
         }
-
-
-
 
 //        int seconds = 0;
         t = new Timer();

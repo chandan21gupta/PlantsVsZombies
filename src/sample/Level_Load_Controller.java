@@ -24,8 +24,6 @@ import java.net.URL;
 import java.util.*;
 //import java.nio.file.Path;
 
-
-
 public class Level_Load_Controller extends Application implements Initializable, Runnable, Serializable {
     Level_One_Controller x;
     private static final long serialVersionUID = 6529685098267757690L;
@@ -353,7 +351,7 @@ public class Level_Load_Controller extends Application implements Initializable,
 //        catch (Exception e){
 //            e.printStackTrace();
 //        }
-        Level_One_Controller data = new Level_One_Controller(0);
+        Level_One_Controller data = new Level_One_Controller(0,1);
 //        data.zombies = this.zombies;
 //        data.advices = this.advices;
 //        data.swords = this.swords;
