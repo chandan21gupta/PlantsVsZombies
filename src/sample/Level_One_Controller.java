@@ -246,7 +246,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         return vals;
     }
 
-    private void generateZombies(int a) {
+    private Zombies generateZombies(int a) {
         String img_url = null;
         ImageView image = null;
         Zombies zombie;
@@ -272,6 +272,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         gameScreen.getChildren().add(image);
         zombies.add(zombie);
         //System.out.println("zombie");
+        return zombie;
 
     }
 
@@ -332,6 +333,36 @@ public class Level_One_Controller extends Application implements Initializable, 
         translate.play();
     }
 
+    private void genPlant(double x, double y){
+        String img_url = null;
+        Image image = null;
+
+        Plant plt =new JonSnow();
+        img_url = plt.getName();
+        try {
+            File file = new File(img_url);
+            img_url = file.toURI().toURL().toExternalForm();
+            image = new Image(img_url);
+//            System.out.println(image.getUrl());
+//            System.out.println(image.getHeight());
+        }
+        catch(Exception e) {
+            //do nothing
+        }
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        plt.setXCord((int)x);
+        plt.setYCord((int) y);
+        plt.setCoordinates((int)x,(int)y);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(30);
+        //System.out.println(gridX);
+//            gameScreen
+        gridX.add(imageView, (int)x,(int) y);
+//        p.setCoordinates((int)x,(int)y);
+        plants.add(plt);
+    }
+
     public void desearlize(){
         ObjectInputStream in = null;
         String fileName = "filesave.txt";
@@ -355,29 +386,11 @@ public class Level_One_Controller extends Application implements Initializable, 
 
 
     public void serialize(){
-//        ObjectOutputStream out = null;
-//        String fileName = "file" +".txt";
-//        try{
-//            System.out.println(fileName);
-//            out = new ObjectOutputStream(new FileOutputStream(fileName));
-//            out.writeObject(x);
-//            out.close();
-//            System.out.println("serialized");
-//            System.out.println(x);
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
+
         Level_One_Controller data = new Level_One_Controller(1);
-//        data.zombies = this.zombies;
-//        data.advices = this.advices;
-//        data.swords = this.swords;
-//        data.plants = this.plants;
         data.timerX = this.timerX;
         data.flag = this.flag;
         data.seconds = this.seconds;
-//        data.gameScreen = this.gameScreen;
-//        data.gridX = this.gridX;
         Iterator i = zombies.iterator();
         while(i.hasNext()) {
             Zombies z = (Zombies)(i.next());
@@ -391,7 +404,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         Iterator z = plants.iterator();
         while(z.hasNext()) {
             Plant p = (Plant)(z.next());
-            plants_coodrdinates.put(p.getImage().getX(),p.getImage().getY());
+            plants_coodrdinates.put((double)p.yCord,(double)p.xCord);
         }
         Iterator k = advices.iterator();
         while(k.hasNext()) {
@@ -431,7 +444,21 @@ public class Level_One_Controller extends Application implements Initializable, 
 
         if (deserialized==1){
             desearlize();
+            zombies_coordinates.forEach((k,v) -> {
+                double x = (double) k;
+                double y = (double) v;
+                Zombies z = generateZombies(2);
+                z.setX((int)x);
+                z.setY((int)y);
+            });
+            plants_coodrdinates.forEach((k,v)->{
+                double x = (double) k;
+                double y = (double) v;
+                genPlant(x,y);
+
+            });
         }
+
 
 
 
