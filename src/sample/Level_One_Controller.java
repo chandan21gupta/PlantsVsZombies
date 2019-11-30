@@ -46,6 +46,8 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     int zombieCount = 20;
 
+    Iterator iterZombie = zombies.iterator();
+
     String current_plant = null;
     Random r = new Random();
     public void generatePlant(MouseEvent event) {
@@ -213,6 +215,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             //gridX.add(imageView,5,0);
         }
         gameScreen.getChildren().add(imageView);
+
         advices.add(advice);
         TranslateTransition translate = new TranslateTransition();
         translate.setDuration(Duration.seconds(5));
@@ -235,6 +238,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             @Override
             public void run() {
                 Platform.runLater(()->{
+
                     if (timerX >= 50){
                         seconds = 2;
                     }
@@ -259,11 +263,19 @@ public class Level_One_Controller extends Application implements Initializable, 
             @Override
             public void run() {
                 Platform.runLater(()->{
+                    int i=0;
 
+                    while(iterZombie.hasNext()){
+//                        System.out.println(gameScreen.getChildren().get(i).getBoundsInLocal());
+                        Zombies z = (Zombies) iterZombie.next();
+                        z.move();
+                        z.getImageView().setX(z.getX());
+                        i+=1;
+                    }
                 });
 
             }
-        }, 0, seconds*1000);
+        }, 0, 5*100);
     }
 
     @Override
