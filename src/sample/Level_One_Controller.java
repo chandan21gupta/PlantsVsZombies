@@ -128,13 +128,13 @@ public class Level_One_Controller extends Application implements Initializable, 
                 Plant plant = plants.get(i);
                 Zombies zombie = zombies.get(j);
 
-                if(plant.X < zombie.getImageView().getX() + (zombie.getImageView().getFitWidth()) &&
-                        plant.X + (plant.getImage().getFitWidth()) > zombie.getImageView().getX() &&
-                        plant.Y < zombie.getImageView().getY() + (zombie.getImageView().getFitHeight()) &&
-                        plant.Y + (plant.getImage().getFitHeight()) > zombie.getImageView().getY())
+                if(plant.X == zombie.getImageView().getX() &&
+                        plant.Y == zombie.getImageView().getY())
                 {
                     //plants.remove(plant);
                     //gameScreen.getChildren().remove(plant.getImage());
+                    System.out.println(plant.X + " " + zombie.getImageView().getX());
+                    System.out.println(plant.Y+" "+zombie.getImageView().getY());
                     System.out.println("remove plant");
                     //System.exit(1);
                     continue;
@@ -151,13 +151,10 @@ public class Level_One_Controller extends Application implements Initializable, 
                 Sword sword = swords.get(i);
                 Zombies zombie = zombies.get(j);
 
-                if(sword.getX() < zombie.getImageView().getX() + (zombie.getImageView().getFitWidth()) &&
-                        sword.getX() + (sword.getImageView().getFitWidth()) > zombie.getImageView().getX() &&
-                        sword.getY() < zombie.getImageView().getY() + (zombie.getImageView().getFitHeight()) &&
-                        sword.getY() + (sword.getImageView().getFitHeight()) > zombie.getImageView().getY())
+                if((Math.abs(sword.getX()- zombie.getImageView().getX())<10 )&& (sword.getY() == zombie.getImageView().getY()))
                 {
                     gameScreen.getChildren().remove(sword.getImageView());
-                    System.out.println("remove plant");
+                    System.out.println("remove sword");
                     //System.exit(1);
                     continue;
                 }
@@ -380,11 +377,11 @@ public class Level_One_Controller extends Application implements Initializable, 
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    checkPlantCollision();
                     checkSwordCollision();
+                    checkPlantCollision();
                 });
             }
-        },0,100);
+        },0,1);
     }
 
     @Override

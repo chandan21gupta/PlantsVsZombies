@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Plant {
     protected float health = 100;
@@ -15,6 +16,7 @@ public class Plant {
     public double X;
     public double Y;
     protected ImageView imageViewX = new ImageView();
+    //ArrayList<Sword> swords = new ArrayList<Sword>();
 
     public Plant() {
     }
