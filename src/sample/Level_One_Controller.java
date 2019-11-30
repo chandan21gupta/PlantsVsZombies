@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 //import javafx.application.Application;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,9 +47,11 @@ class MyTimer implements java.lang.Runnable{
 
     int level;
     ArrayList<Zombies> zombies = new ArrayList<Zombies>();
-    MyTimer(int level,ArrayList<Zombies> zombies) {
+    AnchorPane gameScene;
+    MyTimer(int level,ArrayList<Zombies> zombies,AnchorPane gameScene) {
         this.level = level;
         this.zombies = zombies;
+        this.gameScene = gameScene;
     }
 
     @Override
@@ -77,7 +81,7 @@ class MyTimer implements java.lang.Runnable{
             try {
                 i--;
                 Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
-                if(i == 0 && zombies.size() == 0) {
+                if(i == 0  && zombies.size() == 0) {
                     throw new WinnerException("You Won");
                 }
                 else if(i == 0 && zombies.size() > 0) {
@@ -86,6 +90,42 @@ class MyTimer implements java.lang.Runnable{
             }
             catch (WinnerException e) {
                 //I don't think you need to do anything for your particular problem
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String fxml;
+                        if(level == 1) {
+                            fxml = "playScreen2.fxml";
+                        }
+                        else if(level == 2) {
+                            fxml = "playScreen3.fxml";
+                        }
+                        else if(level == 3) {
+                            fxml = "playScreen4.fxml";
+                        }
+                        else {
+                            fxml = "playScreen5.fxml";
+                        }
+                        Button winnerButton = new Button("Go to next level");
+                        winnerButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                try {
+                                    System.out.println("Here");
+                                    Parent newPane = FXMLLoader.load(getClass().getResource(fxml));
+                                    Scene gamescene = new Scene(newPane);
+                                    Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+                                    window.setScene(gamescene);
+                                    //window.show();
+                                }
+                                catch(Exception e) {
+                                    //do nothing
+                                }
+                            }
+                        });
+                        gameScene.getChildren().add(winnerButton);
+                    }
+                });
             }
             catch (LoserException e) {
                 System.out.println(e.getMessage());
@@ -572,7 +612,7 @@ public class Level_One_Controller extends Application implements Initializable, 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Thread thread = new Thread(new MyTimer(level,zombies));
+        Thread thread = new Thread(new MyTimer(level,zombies,gameScreen));
         thread.start();
 
         if (deserialized==1){
