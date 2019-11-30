@@ -1,8 +1,8 @@
 package sample;
 
-public class Danny extends Plant {
+import javafx.scene.image.ImageView;
 
-    public class JonSnow extends Plant{
+public class Danny extends Plant {
 
         {
             this.cost = 200;
@@ -45,6 +45,31 @@ public class Danny extends Plant {
         public void setXCord(int i) {
             super.setXCord(i);
         }
-    }
+
+        @Override
+        public ImageView getImage() {
+            return super.getImage();
+        }
+
+        @Override
+        public ImageView getImageView() {
+            return super.getImageView();
+        }
+
+        @Override
+        public void setYCord(int z) {
+            super.setYCord(z);
+        }
+
+        @Override
+        public int getCost() {
+            return super.getCost();
+        }
+
+        @Override
+        public void setCoordinates(int z, int y) {
+            super.setCoordinates(z, y);
+        }
+
 
 }

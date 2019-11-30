@@ -122,5 +122,16 @@ public class Sword implements Serializable {
         Y=Y+a;
     }
 
+    public ImageView getImageViewX() {
+        return imageViewX;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public String getSword_url() {
+        return sword_url;
+    }
 
 }

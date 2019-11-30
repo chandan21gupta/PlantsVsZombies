@@ -1,7 +1,8 @@
 package sample;
 
+import javafx.scene.image.ImageView;
+
 public class Shield extends Plant {
-    public class JonSnow extends Plant{
 
         {
             this.health = 300;
@@ -40,5 +41,34 @@ public class Shield extends Plant {
             return super.getDamage();
         }
 
+        @Override
+        public int getCost() {
+            return super.getCost();
+        }
+
+        @Override
+        public void setCoordinates(int z, int y) {
+            super.setCoordinates(z, y);
+        }
+
+        @Override
+        public void setYCord(int z) {
+            super.setYCord(z);
+        }
+
+        @Override
+        public ImageView getImageView() {
+            return super.getImageView();
+        }
+
+        @Override
+        public ImageView getImage() {
+            return super.getImage();
+        }
+
+        @Override
+        public void setXCord(int i) {
+            super.setXCord(i);
+        }
     }
-}
+

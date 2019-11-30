@@ -90,6 +90,9 @@ public class Plant implements Serializable {
     public String getName() {
         return this.img;
     }
+    public int getCost(){
+        return this.cost;
+    }
 
     public void setXCord(int i) {
         this.xCord = i;

@@ -1,15 +1,13 @@
 package sample;
 
-
 import javafx.scene.image.ImageView;
 
-public class JonSnow extends Plant{
-
+public class Arya extends Plant {
     {
-        this.health = 100;
-        this.damage = 10;
-        this.img = "src/sample/johnSnow.png";
-        this.cost = 100;
+        this.cost = 300;
+        this.health = 250;
+        this.damage = 50;
+        this.img = "src/sample/arya.png";
     }
 
     @Override
@@ -48,11 +46,6 @@ public class JonSnow extends Plant{
     }
 
     @Override
-    public void setYCord(int z) {
-        super.setYCord(z);
-    }
-
-    @Override
     public ImageView getImage() {
         return super.getImage();
     }
@@ -63,12 +56,17 @@ public class JonSnow extends Plant{
     }
 
     @Override
-    public void setCoordinates(int z, int y) {
-        super.setCoordinates(z, y);
+    public void setYCord(int z) {
+        super.setYCord(z);
     }
 
     @Override
     public int getCost() {
         return super.getCost();
+    }
+
+    @Override
+    public void setCoordinates(int z, int y) {
+        super.setCoordinates(z, y);
     }
 }

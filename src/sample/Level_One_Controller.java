@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
 //import javafx.scene.Node;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -39,11 +40,15 @@ public class Level_One_Controller extends Application implements Initializable, 
     @FXML
     public AnchorPane gameScreen;
 
+    @FXML
+    public Label scoreX;
+
     Timer t;
     boolean flag;
     int timerX = 0;
     int seconds = 5;
     transient int deserialized;
+    int counter;
 
     public Level_One_Controller(int a){
         this.deserialized = a;
@@ -82,6 +87,7 @@ public class Level_One_Controller extends Application implements Initializable, 
     }
 
     public void addPlant(MouseEvent event) throws URISyntaxException {
+        int price = 0;
         if (current_plant == null)
             return;
         String img_url = null;
@@ -91,45 +97,66 @@ public class Level_One_Controller extends Application implements Initializable, 
         //double y = 0;
         if (current_plant.equals("jonSnow")) {
             plt = new JonSnow();
+            price = plt.getCost();
             img_url = plt.getName();
+
 //            System.out.println(img_url);
+        } else if (current_plant.equals("shield")) {
+            plt = new Shield();
+            price = plt.getCost();
+            img_url = plt.getName();
+        } else if (current_plant.equals("arya")) {
+            plt = new Arya();
+            price = plt.getCost();
+            img_url = plt.getName();
+        } else if (current_plant.equals("tyrion")) {
+            plt = new Tyrion();
+            price = plt.getCost();
+            img_url = plt.getName();
+        } else if (current_plant.equals("danny")) {
+            plt = new Danny();
+            price = plt.getCost();
+            img_url = plt.getName();
         }
-        try {
-            File file = new File(img_url);
-            img_url = file.toURI().toURL().toExternalForm();
-            image = new Image(img_url);
+        if (price > Integer.parseInt(scoreX.getText())) {
+            counter = counter;
+        } else {
+            try {
+                File file = new File(img_url);
+                img_url = file.toURI().toURL().toExternalForm();
+                image = new Image(img_url);
 //            System.out.println(image.getUrl());
 //            System.out.println(image.getHeight());
-        }
-        catch(Exception e) {
-            //do nothing
-        }
+            } catch (Exception e) {
+                //do nothing
+            }
 
-        ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        //System.out.println(imageView.getImage());
-        int[] value;
-        try {
-            value = getBox(event.getX(), event.getY());
-            plt.setXCord(value[1]);
-            plt.setYCord(value[0]);
-            plt.setCoordinates(value[1],value[0]);
-            double x = event.getX();
-            double y = event.getY();
-            //System.out.println(value[0] + " " + value[1]);
-            //System.out.println(x + " " + y);
-            imageView.setFitHeight(60);
-            imageView.setFitWidth(30);
-            //System.out.println(gridX);
+            ImageView imageView = new ImageView();
+            imageView.setImage(image);
+            //System.out.println(imageView.getImage());
+            int[] value;
+            try {
+                value = getBox(event.getX(), event.getY());
+                plt.setXCord(value[1]);
+                plt.setYCord(value[0]);
+                plt.setCoordinates(value[1], value[0]);
+                double x = event.getX();
+                double y = event.getY();
+                //System.out.println(value[0] + " " + value[1]);
+                //System.out.println(x + " " + y);
+                imageView.setFitHeight(60);
+                imageView.setFitWidth(30);
+                //System.out.println(gridX);
 //            gameScreen
-            gridX.add(imageView, value[0], value[1]);
+                gridX.add(imageView, value[0], value[1]);
 //            generateSword(value[1]);
+            } catch (InvalidArguement invalidArguement) {
+                System.out.println("error");
+            }
+            plants.add(plt);
+            ScoreCounter(-price);
+            current_plant = null;
         }
-        catch (InvalidArguement invalidArguement) {
-            System.out.println("error");
-        }
-        plants.add(plt);
-        current_plant = null;
     }
 
     public void checkPlantHealth() {
@@ -325,9 +352,15 @@ public class Level_One_Controller extends Application implements Initializable, 
             public void handle(MouseEvent event) {
                 System.out.println("Advices clicked");
                 gameScreen.getChildren().remove(imageView);
+                ScoreCounter(50);
                 event.consume();
+
             }
         });
+    }
+    public void ScoreCounter(int val){
+        counter = Integer.valueOf(scoreX.getText())+val;
+        scoreX.setText(Integer.toString(counter));
     }
 
     private void genPlant(double x, double y){

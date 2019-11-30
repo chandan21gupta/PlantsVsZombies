@@ -1,7 +1,8 @@
 package sample;
 
+import javafx.scene.image.ImageView;
+
 public class Tyrion extends Plant{
-    public class JonSnow extends Plant{
 
         {
             this.health = 50;
@@ -40,5 +41,30 @@ public class Tyrion extends Plant{
             return super.getDamage();
         }
 
-    }
+        @Override
+        public int getCost() {
+            return super.getCost();
+        }
+
+        @Override
+        public void setYCord(int z) {
+            super.setYCord(z);
+        }
+
+        @Override
+        public void setXCord(int i) {
+            super.setXCord(i);
+        }
+
+        @Override
+        public ImageView getImageView() {
+            return super.getImageView();
+        }
+
+        @Override
+        public ImageView getImage() {
+            return super.getImage();
+        }
+
+
 }
