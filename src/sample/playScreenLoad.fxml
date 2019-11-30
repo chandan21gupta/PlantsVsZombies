@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="gameScreen" onMousePressed="#onClickX" prefHeight="420.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Level_One_Controller">
+<AnchorPane fx:id="gameScreen" onMousePressed="#onClickX" prefHeight="420.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Level_Load_Controller">
 <!--<AnchorPane fx:id="gameScreen" onMousePressed="#onClickX" prefHeight="355.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Level_One_Controller">-->
    <children>
       <ImageView fitHeight="421.0" fitWidth="781.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">

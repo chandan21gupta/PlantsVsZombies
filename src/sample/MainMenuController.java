@@ -18,24 +18,30 @@ public class MainMenuController {
         final Node source = (Node)event.getSource();
         String id = source.getId();
         Parent secondPane;
+        Scene gameScene;
         //Parent gameScreen = FXMLLoader.load(getClass().getResource("playScreen.fxml"));
         System.out.println(id);
         if(id.equals("startGame")) {
-            Game game = new Game(new Level(1),event);
+            Game game = new Game(new Level(1,0),event,0);
         }
         else if (id.equals("selectLevel")){
             System.out.println("selectLevel");
         }
         else if(id.equals("loadGame")) {
             System.out.println("loadBut");
+            Game game = new Game(new Level(1,1), event, 1);
 //            secondPane = FXMLLoader.load(getClass().getResource("AboutScreen.fxml"));
 //            Game game = new Game(new Level(1),event);
         }
         else if (id.equals("aboutGame")){
-            secondPane = FXMLLoader.load(getClass().getResource("AboutScreen.fxml"));
+            Parent newPane = FXMLLoader.load(getClass().getResource("AboutScreen.fxml"));
+            gameScene = new Scene(newPane);
+            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+            window.setScene(gameScene);
+            window.show();
         }
         else if(id.equals("exit")) {
-            System.exit(-1);
+            System.exit(1);
         }
 
     }

@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class Zombies{
-
+public class Zombies implements Serializable {
     protected float health = 100;
     protected float damage = 10;
     protected int speed = 5;

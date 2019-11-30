@@ -6,12 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
+
 public class Game {
     Level level;
     Parent pane;
     Scene gameScene;
 
-    Game(Level level, ActionEvent event) {
+    Game(Level level, ActionEvent event, int load) {
         this.level = level;
         this.pane = this.level.getPane();
         gameScene = new Scene(pane);

@@ -1,5 +1,6 @@
 package sample;
 
+
 import javafx.animation.TranslateTransition;
 //import javafx.application.Application;
 import javafx.application.Application;
@@ -24,15 +25,10 @@ import java.util.*;
 //import java.nio.file.Path;
 
 
-class InvalidArguement extends Exception
-{
-    public InvalidArguement(String message){super(message);}
-}
 
-public class Level_One_Controller extends Application implements Initializable, Runnable, Serializable {
-//    Level_One_Controller x;
+public class Level_Load_Controller extends Application implements Initializable, Runnable, Serializable {
+    Level_One_Controller x;
     private static final long serialVersionUID = 6529685098267757690L;
-    Level_One_Controller x = this;
     @FXML
     public GridPane gridX;
     @FXML
@@ -47,29 +43,27 @@ public class Level_One_Controller extends Application implements Initializable, 
     public ArrayList<Advice> advices = new ArrayList<>();
     public ArrayList<Sword> swords = new ArrayList<>();
     public ArrayList<Plant> plants = new ArrayList<>();
-
     HashMap<Double,Double> zombies_coordinates = new HashMap<>();
     HashMap<Double,Double> plants_coodrdinates = new HashMap<>();
     HashMap<Double,Double> swords_coordinates = new HashMap<>();
     HashMap<Double,Double> advices_coordinates = new HashMap<>();
 
+
     private String current_plant = null;
     private Random r = new Random();
-
-
     public void generatePlant(MouseEvent event) {
-       current_plant = event.getPickResult().getIntersectedNode().getId();
+        current_plant = event.getPickResult().getIntersectedNode().getId();
 //       System.out.println(current_plant);
 //       this.startAnimation();
     }
 
     public void onClickX(MouseEvent event){
-        //System.out.println("x: " + event.getX());
-        //System.out.println("y: "+ event.getY());
+        System.out.println("x: " + event.getX());
+        System.out.println("y: "+ event.getY());
     }
 
     public void generateSword(int x,int y) {
-        Sword sword = new Sword(5);
+        Sword sword = new Sword();
         ImageView imageViewSw = sword.getImage(x,y);
         swords.add(sword);
         gameScreen.getChildren().add(imageViewSw);
@@ -124,79 +118,47 @@ public class Level_One_Controller extends Application implements Initializable, 
         }
         plants.add(plt);
         current_plant = null;
+
+
     }
-
-    public void checkPlantHealth() {
-        Iterator<Plant> i = plants.iterator();
-        while(i.hasNext()) {
-            Plant plant = i.next();
-            if(plant.getHealth()<=0) {
-                System.out.println("Plant's Health: "+plant.getHealth());
-                //plant.getImageView().setImage(null);
-                gridX.getChildren().remove(plant.getImageView());
-                //System.out.println(plant);
-                i.remove();
-            }
-        }
-    }
-
-    public void checkZombieHealth() {
-        Iterator<Zombies> j = zombies.iterator();
-        while(j.hasNext()) {
-            Zombies zombie = j.next();
-            if(zombie.getHealth()<=0) {
-                //System.out.println("zombie's health "+zombie.getHealth());
-                gameScreen.getChildren().remove(zombie.getImageView());
-                j.remove();
-            }
-        }
-
 
     public void checkPlantCollision() {
         for(int i = 0; i < plants.size(); i++)
         {
-            Plant plant = plants.get(i);
             for(int j = 0; j < zombies.size(); j++)
             {
-
+                Plant plant = plants.get(i);
                 Zombies zombie = zombies.get(j);
 
-                if(Math.abs(plant.X - zombie.getImageView().getX()) < 10 && (plant.Y == zombie.getImageView().getY()))
+                if(plant.X == zombie.getImageView().getX() &&
+                        plant.Y == zombie.getImageView().getY())
                 {
-                    zombie.setSpeed(0);
-                    zombie.setHealth(zombie.getHealth()-plant.getDamage());
-                    plant.setHealth(plant.getHealth()-zombie.getDamage());
-//                    zombie.setFlag(false);
-                    break;
+                    //plants.remove(plant);
+                    //gameScreen.getChildren().remove(plant.getImage());
+                    System.out.println(plant.X + " " + zombie.getImageView().getX());
+                    System.out.println(plant.Y+" "+zombie.getImageView().getY());
+                    System.out.println("remove plant");
+                    //System.exit(1);
+                    continue;
                 }
             }
         }
     }
 
     public void checkSwordCollision() {
-
         for(int i = 0; i < swords.size(); i++)
-        {   Sword sword = swords.get(i);
-
+        {
             for(int j = 0; j < zombies.size(); j++)
             {
+                Sword sword = swords.get(i);
                 Zombies zombie = zombies.get(j);
 
                 if((Math.abs(sword.getX()- zombie.getImageView().getX())<10 )&& (sword.getY() == zombie.getImageView().getY()))
-                {   if (!sword.flag)
-                    {
-                        System.out.println(zombie);
-                        System.out.println(sword);
-                        System.out.println("Zombie's health before " + zombie.getHealth());
-                        zombie.setHealth(zombie.getHealth() - sword.getDamage());
-                        //zombie.setFlag(false);
-                        gameScreen.getChildren().remove(sword.getImageView());
-                        System.out.println("Zombie's health after " + zombie.getHealth());
-                        //System.out.println("remove sword");
-                        //System.exit(1);
-                        sword.flag = true;
-                        break;
-                    }
+                {
+                    gameScreen.getChildren().remove(sword.getImageView());
+                    System.out.println("remove sword");
+                    //System.exit(1);
+                    continue;
                 }
             }
         }
@@ -265,7 +227,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         image = zombie.getImage(z);
         gameScreen.getChildren().add(image);
         zombies.add(zombie);
-        //System.out.println("zombie");
+        System.out.println("zombie");
 
     }
 
@@ -329,21 +291,50 @@ public class Level_One_Controller extends Application implements Initializable, 
     public void desearlize(String name){
         ObjectInputStream in = null;
         String fileName = name +".txt";
-        try{
-//            FileInputStream fis = new FileInputStream("student.ser");
-            in = new ObjectInputStream(new FileInputStream(fileName));
-            x = (Level_One_Controller) in.readObject();
-            System.out.println("deserialized");
-//            this.val = x.getVal();
-//            this.numTramp = x.getNumTrampoline();
-//            this.numCrickets = x.getNumCricket();
-//            this.numVultures = x.getNumVulture();
-//            this.numSnake = x.getNumSnake();
-//            this.numRoll = x.getRollVal();
-//            System.out.println("Number of tiles restored to "+ x.getVal());
+//        try{
+////            FileInputStream fis = new FileInputStream("student.ser");
+//            in = new ObjectInputStream(new FileInputStream(fileName));
+//            x = (Level_One_Controller) in.readObject();
+//            this.plants = x.plants;
+//            System.out.println(plants.size());
+//            this.advices = x.advices;
+//            System.out.println(advices.size());
+//            this.zombies = x.zombies;
+//            System.out.println(zombies.size());
+//            this.swords = x.swords;
+//            System.out.println(swords.size());
+//            this.timerX = x.timerX;
+//            System.out.println(timerX);
+//            this.seconds = x.seconds;
+//            System.out.println(seconds);
+//            this.flag = x.flag;
+//            System.out.println(flag);
+//            this.gridX = x.gridX;
+//            System.out.println(gridX);
+//            this.gameScreen = x.gameScreen;
+//            System.out.println(gameScreen);
+//            System.out.println("deserialized");
+//
+//        }
+//        catch (Exception e) {
+//            x = new Level_One_Controller();
+//            System.out.println(x);
+//        }
+        try {
+            Level_Load_Controller data = (Level_Load_Controller) ResourceManager.load(fileName);
+            this.zombies_coordinates = data.zombies_coordinates;
+            this.advices_coordinates = data.advices_coordinates;
+            this.swords_coordinates = data.swords_coordinates;
+            this.plants_coodrdinates = data.plants_coodrdinates;
+            this.timerX = data.timerX;
+            this.flag = data.flag;
+            this.seconds = data.seconds;
+//            this.gameScreen = data.gameScreen;
+//            this.gridX = data.gridX;
+            System.out.println("Success");
         }
-        catch (Exception e) {
-            x = new Level_One_Controller();
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -422,6 +413,10 @@ public class Level_One_Controller extends Application implements Initializable, 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        int seconds = 0;
+        desearlize("file");
+
+
+
         t = new Timer();
 //        seconds = 10;
 //        int finalSeconds = seconds;
@@ -442,8 +437,8 @@ public class Level_One_Controller extends Application implements Initializable, 
 //                    t.notifyAll();
                     }
                     else{
-                        //System.out.println(timerX);
-                        //System.out.println(seconds);
+                        System.out.println(timerX);
+                        System.out.println(seconds);
                         int a = r.nextInt(3);
                         generateZombies(a);
                         generateAdvice();
@@ -504,7 +499,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
                 });
             }
-        }, 0, 1*1000);
+        }, 0, 4*1000);
 
         t.schedule(new TimerTask() {
             @Override
@@ -512,10 +507,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                 Platform.runLater(() -> {
                     checkSwordCollision();
                     checkPlantCollision();
-//                    checkSwordCollision();
-//                    checkPlantCollision();
-                    checkZombieHealth();
-                    checkPlantHealth();
+                    checkSwordCollision();
                 });
             }
         },0,1);
@@ -530,5 +522,8 @@ public class Level_One_Controller extends Application implements Initializable, 
     public void start(Stage stage) throws Exception {
         //TranslateTransition translate = new TranslateTransition();
     }
+
+
 }
+
 

@@ -4,9 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plant {
+public class Plant implements Serializable {
     protected float health = 100;
     protected float damage = 10;
     protected String img;

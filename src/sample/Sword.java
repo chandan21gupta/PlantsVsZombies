@@ -4,8 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class Sword {
+public class Sword implements Serializable {
     protected ImageView imageViewX= new ImageView();;
     protected final String sword_url = "src/images/extraImages/sword.png";
 //    protected double x_coor;
