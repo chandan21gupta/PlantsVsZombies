@@ -12,8 +12,8 @@ public class Plant implements Serializable {
     protected float damage = 10;
     protected String img;
     protected int cost = 50;
-    protected int xCord;
-    protected int yCord;
+    public int xCord;
+    public int yCord;
     public double X;
     public double Y;
     public ImageView imageViewX = new ImageView();
