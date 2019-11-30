@@ -56,4 +56,14 @@ public class JonSnow extends Plant{
     public ImageView getImage() {
         return super.getImage();
     }
+
+    @Override
+    public ImageView getImageView() {
+        return super.getImageView();
+    }
+
+    @Override
+    public void setCoordinates(int z, int y) {
+        super.setCoordinates(z, y);
+    }
 }

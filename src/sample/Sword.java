@@ -10,9 +10,15 @@ public class Sword {
     protected final String sword_url = "src/images/extraImages/sword.png";
 //    protected double x_coor;
 //    protected double y_coor;
-    int speed = 2;
+    int speed = 10;
     protected double X;
     protected double Y;
+    int damage;
+    boolean flag;
+
+    Sword(int damage) {
+        this.damage = damage;
+    }
 
     public ImageView getImage(int x, int y){
         String img_url = null;
@@ -21,7 +27,7 @@ public class Sword {
         try {
             File file = new File(img_url);
             img_url = file.toURI().toURL().toExternalForm();
-            System.out.println(img_url);
+            //System.out.println(img_url);
             image = new Image(img_url);
         }
         catch(Exception e) {
@@ -83,7 +89,15 @@ public class Sword {
             imageViewX.setY((double) 331);
             Y = (double) 331;
         }
-        System.out.println(imageViewX.getY());
+        //System.out.println(imageViewX.getY());
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getDamage() {
+        return this.damage;
     }
 
     public void move() {

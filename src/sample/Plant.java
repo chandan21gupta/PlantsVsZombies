@@ -15,7 +15,7 @@ public class Plant {
     protected int yCord;
     public double X;
     public double Y;
-    protected ImageView imageViewX = new ImageView();
+    public ImageView imageViewX = new ImageView();
     //ArrayList<Sword> swords = new ArrayList<Sword>();
 
     public Plant() {
@@ -75,7 +75,7 @@ public class Plant {
         return this.health;
     }
     public void setHealth(float health) {
-        this.health = this.health - health;
+        this.health = health;
     }
     public void attack(Zombies Z) {
         Z.setHealth(damage);
@@ -116,5 +116,9 @@ public class Plant {
         imageViewX.setFitHeight(66);
         imageViewX.setFitWidth(40);
         return imageViewX;
+    }
+
+    public ImageView getImageView(){
+        return this.imageViewX;
     }
 }

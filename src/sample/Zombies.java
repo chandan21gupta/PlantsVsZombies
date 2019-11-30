@@ -6,9 +6,11 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 public class Zombies{
+
     protected float health = 100;
     protected float damage = 10;
     protected int speed = 5;
+    protected int tempSpeed;
     protected int levelX = 1;
     protected double X;
     protected double Y;
@@ -17,6 +19,7 @@ public class Zombies{
     protected String imgL2 = "src/images/chars/dannyArmy1.png";
     protected String imgL3 = "src/images/chars/cersieArmy1.png";
     protected int XCord;
+    protected boolean flag = true;
 
     public Zombies(int x){
 
@@ -29,7 +32,7 @@ public class Zombies{
     }
 
     public void setHealth(float health) {
-        this.health = this.health - health;
+        this.health = health;
     }
 
     public void attack(Plant P) {
@@ -127,11 +130,25 @@ public class Zombies{
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+        this.tempSpeed = this.speed;
+        if (speed==-1){
+            this.speed = tempSpeed;
+        }
+        else {
+            this.speed = speed;
+        }
     }
 
     public ImageView getImageView(){
         return this.imageView;
+    }
+
+    public void setFlag(boolean t) {
+        this.flag = t;
+    }
+
+    public boolean getFlag() {
+        return this.flag;
     }
 
 }

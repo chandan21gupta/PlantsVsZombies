@@ -84,4 +84,14 @@ public class SpecialZombie extends Zombies{
     public ImageView getImageView() {
         return super.getImageView();
     }
+
+    @Override
+    public void setFlag(boolean t) {
+        super.setFlag(t);
+    }
+
+    @Override
+    public boolean getFlag() {
+        return super.getFlag();
+    }
 }

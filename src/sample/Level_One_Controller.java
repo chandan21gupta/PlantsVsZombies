@@ -56,12 +56,12 @@ public class Level_One_Controller extends Application implements Initializable, 
     }
 
     public void onClickX(MouseEvent event){
-        System.out.println("x: " + event.getX());
-        System.out.println("y: "+ event.getY());
+        //System.out.println("x: " + event.getX());
+        //System.out.println("y: "+ event.getY());
     }
 
     public void generateSword(int x,int y) {
-        Sword sword = new Sword();
+        Sword sword = new Sword(5);
         ImageView imageViewSw = sword.getImage(x,y);
         swords.add(sword);
         gameScreen.getChildren().add(imageViewSw);
@@ -116,47 +116,79 @@ public class Level_One_Controller extends Application implements Initializable, 
         }
         plants.add(plt);
         current_plant = null;
+    }
 
+    public void checkPlantHealth() {
+        Iterator<Plant> i = plants.iterator();
+        while(i.hasNext()) {
+            Plant plant = i.next();
+            if(plant.getHealth()<=0) {
+                System.out.println("Plant's Health: "+plant.getHealth());
+                //plant.getImageView().setImage(null);
+                gridX.getChildren().remove(plant.getImageView());
+                //System.out.println(plant);
+                i.remove();
+            }
+        }
+    }
 
+    public void checkZombieHealth() {
+        Iterator<Zombies> j = zombies.iterator();
+        while(j.hasNext()) {
+            Zombies zombie = j.next();
+            if(zombie.getHealth()<=0) {
+                //System.out.println("zombie's health "+zombie.getHealth());
+                gameScreen.getChildren().remove(zombie.getImageView());
+                j.remove();
+            }
+        }
     }
 
     public void checkPlantCollision() {
         for(int i = 0; i < plants.size(); i++)
         {
+            Plant plant = plants.get(i);
             for(int j = 0; j < zombies.size(); j++)
             {
-                Plant plant = plants.get(i);
+
                 Zombies zombie = zombies.get(j);
 
-                if(Math.abs(plant.getImage().getX() - zombie.getImageView().getX()) < 10 && (plant.getImage().getY() == zombie.getImageView().getX()))
+                if(Math.abs(plant.X - zombie.getImageView().getX()) < 10 && (plant.Y == zombie.getImageView().getY()))
                 {
-                    //plants.remove(plant);
-                    //gameScreen.getChildren().remove(plant.getImage());
-//                    System.out.println(plant.X + " " + zombie.getImageView().getX());
-//                    System.out.println(plant.Y+" "+zombie.getImageView().getY());
                     zombie.setSpeed(0);
-                    System.out.println("remove plant");
-                    //System.exit(1);
-                    continue;
+                    zombie.setHealth(zombie.getHealth()-plant.getDamage());
+                    plant.setHealth(plant.getHealth()-zombie.getDamage());
+//                    zombie.setFlag(false);
+                    break;
                 }
             }
         }
     }
 
     public void checkSwordCollision() {
+
         for(int i = 0; i < swords.size(); i++)
-        {
+        {   Sword sword = swords.get(i);
+
             for(int j = 0; j < zombies.size(); j++)
             {
-                Sword sword = swords.get(i);
                 Zombies zombie = zombies.get(j);
 
                 if((Math.abs(sword.getX()- zombie.getImageView().getX())<10 )&& (sword.getY() == zombie.getImageView().getY()))
-                {
-                    gameScreen.getChildren().remove(sword.getImageView());
-                    System.out.println("remove sword");
-                    //System.exit(1);
-                    continue;
+                {   if (!sword.flag)
+                    {
+                        System.out.println(zombie);
+                        System.out.println(sword);
+                        System.out.println("Zombie's health before " + zombie.getHealth());
+                        zombie.setHealth(zombie.getHealth() - sword.getDamage());
+                        //zombie.setFlag(false);
+                        gameScreen.getChildren().remove(sword.getImageView());
+                        System.out.println("Zombie's health after " + zombie.getHealth());
+                        //System.out.println("remove sword");
+                        //System.exit(1);
+                        sword.flag = true;
+                        break;
+                    }
                 }
             }
         }
@@ -225,7 +257,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         image = zombie.getImage(z);
         gameScreen.getChildren().add(image);
         zombies.add(zombie);
-        System.out.println("zombie");
+        //System.out.println("zombie");
 
     }
 
@@ -309,8 +341,8 @@ public class Level_One_Controller extends Application implements Initializable, 
 //                    t.notifyAll();
                     }
                     else{
-                        System.out.println(timerX);
-                        System.out.println(seconds);
+                        //System.out.println(timerX);
+                        //System.out.println(seconds);
                         int a = r.nextInt(3);
                         generateZombies(a);
                         generateAdvice();
@@ -371,7 +403,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
                 });
             }
-        }, 0, 4*1000);
+        }, 0, 1*1000);
 
         t.schedule(new TimerTask() {
             @Override
@@ -379,7 +411,10 @@ public class Level_One_Controller extends Application implements Initializable, 
                 Platform.runLater(() -> {
                     checkSwordCollision();
                     checkPlantCollision();
-                    checkSwordCollision();
+//                    checkSwordCollision();
+//                    checkPlantCollision();
+                    checkZombieHealth();
+                    checkPlantHealth();
                 });
             }
         },0,1);

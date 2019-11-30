@@ -12,6 +12,7 @@ public class NormalZombie extends Zombies{
         this.speed = 5;
         this.health = 100;
         this.damage = 10;
+        //this.flag = true;
     }
 
     @Override
@@ -84,6 +85,14 @@ public class NormalZombie extends Zombies{
         return super.getImageView();
     }
 
+    @Override
+    public void setFlag(boolean t) {
+        super.setFlag(t);
+    }
 
+    @Override
+    public boolean getFlag() {
+        return super.getFlag();
+    }
 
 }
