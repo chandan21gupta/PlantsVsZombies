@@ -94,6 +94,7 @@ public class Zombies implements Serializable {
         }
         catch(Exception e) {
             //do nothing
+            //do nothing
         }
         imageView.setImage(image);
         imageView.setFitHeight(66);
