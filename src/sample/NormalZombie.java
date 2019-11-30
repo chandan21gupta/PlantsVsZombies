@@ -9,6 +9,9 @@ public class NormalZombie extends Zombies{
 
     public NormalZombie(int x) {
         super(x);
+        this.speed = 5;
+        this.health = 100;
+        this.damage = 10;
     }
 
     @Override

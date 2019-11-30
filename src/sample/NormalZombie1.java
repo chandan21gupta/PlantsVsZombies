@@ -8,6 +8,12 @@ import java.io.File;
 public class NormalZombie1 extends Zombies{
     public NormalZombie1(int x) {
         super(x);
+        this.speed = 7;
+        this.health = 150;
+        this.damage = 12;
+        this.imgL1 = "src/images/chars/nightKingArmy2.png";
+        this.imgL2 = "src/images/chars/dannyArmy2.png";
+        this.imgL3 = "src/images/chars/cersieArmy2.png";
     }
 
     @Override

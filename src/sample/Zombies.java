@@ -8,14 +8,14 @@ import java.io.File;
 public class Zombies{
     protected float health = 100;
     protected float damage = 10;
-    protected int speed = 10;
+    protected int speed = 5;
     protected int levelX = 1;
     protected double X;
     protected double Y;
     protected ImageView imageView = new ImageView();
-    protected final String imgL1 = "src/images/chars/nightKingArmy1.png";
-    protected final String imgL2 = "src/images/chars/dannyArmy1.png";
-    protected final String imgL3 = "src/images/chars/cersieArmy1.png";
+    protected String imgL1 = "src/images/chars/nightKingArmy1.png";
+    protected String imgL2 = "src/images/chars/dannyArmy1.png";
+    protected String imgL3 = "src/images/chars/cersieArmy1.png";
 
     public Zombies(int x){
 

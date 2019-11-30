@@ -36,20 +36,17 @@ public class Level_One_Controller extends Application implements Initializable, 
     @FXML
     public AnchorPane gameScreen;
 
-    Timer timer;
-    boolean flag;
-    int timerX = 0;
-    int seconds = 5;
+    Timer t;
+    private boolean flag;
+    private int timerX = 0;
+    private int seconds = 5;
 
-    ArrayList<Zombies> zombies = new ArrayList<>();
-    ArrayList<Advice> advices = new ArrayList<>();
+    private ArrayList<Zombies> zombies = new ArrayList<>();
+    private ArrayList<Advice> advices = new ArrayList<>();
 
-    int zombieCount = 20;
 
-    Iterator iterZombie = zombies.iterator();
-
-    String current_plant = null;
-    Random r = new Random();
+    private String current_plant = null;
+    private Random r = new Random();
     public void generatePlant(MouseEvent event) {
        current_plant = event.getPickResult().getIntersectedNode().getId();
 //       System.out.println(current_plant);
@@ -113,7 +110,8 @@ public class Level_One_Controller extends Application implements Initializable, 
         current_plant = null;
         generateSword(imageView.getX(),imageView.getY());
     }
-    public int[] getBox ( double x, double y) throws InvalidArguement {
+
+    private int[] getBox(double x, double y) throws InvalidArguement {
         int cordX = 0;
         int cordY = 0;
         int[] vals = new int[2];
@@ -151,7 +149,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         return vals;
     }
 
-    public void generateZombies(int a) {
+    private void generateZombies(int a) {
         String img_url = null;
         ImageView image = null;
         Zombies zombie;
@@ -180,7 +178,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     }
 
-    public void generateAdvice() {
+    private void generateAdvice() {
         String img_url = null;
         Image image = null;
         Advice advice = new Advice();
@@ -240,9 +238,11 @@ public class Level_One_Controller extends Application implements Initializable, 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        int seconds = 0;
-        Timer t = new Timer();
+        t = new Timer();
 //        seconds = 10;
 //        int finalSeconds = seconds;
+
+        //Generates Zombies
         t.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -268,23 +268,24 @@ public class Level_One_Controller extends Application implements Initializable, 
                 });
             }
         }, 0, seconds*1000);
-//        t.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                Platform.runLater(()->{
-//                    int i=0;
-//
-//                    while(iterZombie.hasNext()){
-////                        System.out.println(gameScreen.getChildren().get(i).getBoundsInLocal());
-//                        Zombies z = (Zombies) iterZombie.next();
-//                        z.move();
-//                        z.getImageView().setX(z.getX());
-//                        i+=1;
-//                    }
-//                });
-//
-//            }
-//        }, 0, 5*100);
+
+        //Makes the Zombies Move
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(()->{
+                    int i=0;
+                    while(i<zombies.size()){
+//                        System.out.println(gameScreen.getChildren().get(i).getBoundsInLocal());
+                        Zombies z = zombies.get(i);
+                        z.move();
+                        z.getImageView().setX(z.getX());
+                        i+=1;
+                    }
+                });
+
+            }
+        }, 0, 2*100);
     }
 
     @Override

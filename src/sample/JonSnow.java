@@ -1,27 +1,43 @@
 package sample;
 
-public class JonSnow implements Plant{
 
-    private float health = 100;
-    private float damage = 10;
-    private final String img = "src/sample/johnSnow.png";
+public class JonSnow extends Plant{
 
-    public float getHealth() {
-        return this.health;
+    {
+        this.health = 100;
+        this.damage = 10;
+        this.img = "src/sample/johnSnow.png";
+        this.cost = 50;
     }
-    public void setHealth(float health) {
-        this.health = this.health - health;
-    }
-    public void attack(Zombies Z) {
-        Z.setHealth(damage);
-    }
-    public float getDamage() {
-        return this.damage;
-    }
-    public void setDamage(float damage) {
-        this.damage = damage;
-    }
+
+    @Override
     public String getName() {
-        return this.img;
+        return super.getName();
     }
+
+    @Override
+    public void setDamage(float damage) {
+        super.setDamage(damage);
+    }
+
+    @Override
+    public void setHealth(float health) {
+        super.setHealth(health);
+    }
+
+    @Override
+    public void attack(Zombies Z) {
+        super.attack(Z);
+    }
+
+    @Override
+    public float getHealth() {
+        return super.getHealth();
+    }
+
+    @Override
+    public float getDamage() {
+        return super.getDamage();
+    }
+
 }

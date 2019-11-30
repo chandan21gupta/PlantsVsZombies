@@ -9,11 +9,15 @@ public class SpecialZombie extends Zombies{
 
     public SpecialZombie(int x) {
         super(x);
+        this.speed = 3;
+        this.health = 200;
+        this.damage = 20;
     }
 
     @Override
     public float getDamage() {
         return super.getDamage();
+
     }
 
     @Override
