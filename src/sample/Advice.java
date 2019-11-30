@@ -1,7 +1,9 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.Serializable;
@@ -25,8 +27,6 @@ public class Advice implements Serializable {
             //do nothing
         }
         imageView.setImage(image);
-        imageView.setFitHeight(66);
-        imageView.setFitWidth(40);
         return imageView;
     }
 }
