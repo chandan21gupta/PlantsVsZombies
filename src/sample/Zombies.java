@@ -126,6 +126,10 @@ public class Zombies{
         //System.out.println(imageView.getY());
     }
 
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     public ImageView getImageView(){
         return this.imageView;
     }

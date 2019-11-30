@@ -128,13 +128,13 @@ public class Level_One_Controller extends Application implements Initializable, 
                 Plant plant = plants.get(i);
                 Zombies zombie = zombies.get(j);
 
-                if(plant.X == zombie.getImageView().getX() &&
-                        plant.Y == zombie.getImageView().getY())
+                if(Math.abs(plant.getImage().getX() - zombie.getImageView().getX()) < 10 && (plant.getImage().getY() == zombie.getImageView().getX()))
                 {
                     //plants.remove(plant);
                     //gameScreen.getChildren().remove(plant.getImage());
-                    System.out.println(plant.X + " " + zombie.getImageView().getX());
-                    System.out.println(plant.Y+" "+zombie.getImageView().getY());
+//                    System.out.println(plant.X + " " + zombie.getImageView().getX());
+//                    System.out.println(plant.Y+" "+zombie.getImageView().getY());
+                    zombie.setSpeed(0);
                     System.out.println("remove plant");
                     //System.exit(1);
                     continue;
