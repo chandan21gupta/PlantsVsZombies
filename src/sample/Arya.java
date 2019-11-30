@@ -4,7 +4,7 @@ import javafx.scene.image.ImageView;
 
 public class Arya extends Plant {
     {
-        this.cost = 300;
+        this.cost = 150;
         this.health = 250;
         this.damage = 50;
         this.img = "src/sample/arya.png";
