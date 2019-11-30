@@ -336,7 +336,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                 });
 
             }
-        }, 0, 2*100);
+        }, 1000, 2*100);
 
         t.schedule(new TimerTask() {
             @Override
@@ -379,6 +379,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                 Platform.runLater(() -> {
                     checkSwordCollision();
                     checkPlantCollision();
+                    checkSwordCollision();
                 });
             }
         },0,1);
