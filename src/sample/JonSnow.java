@@ -40,4 +40,13 @@ public class JonSnow extends Plant{
         return super.getDamage();
     }
 
+    @Override
+    public void setXCord(int i) {
+        super.setXCord(i);
+    }
+
+    @Override
+    public void setYCord(int z) {
+        super.setYCord(z);
+    }
 }

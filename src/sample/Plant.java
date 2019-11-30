@@ -5,6 +5,8 @@ public class Plant {
     protected float damage = 10;
     protected String img;
     protected int cost = 50;
+    protected int xCord;
+    protected int yCord;
 
     public Plant() {
     }
@@ -27,4 +29,13 @@ public class Plant {
     public String getName() {
         return this.img;
     }
+
+    public void setXCord(int i) {
+        this.xCord = i;
+    }
+
+    public void setYCord(int z){
+        this.yCord = z;
+    }
+
 }

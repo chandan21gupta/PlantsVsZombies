@@ -16,6 +16,7 @@ public class Zombies{
     protected String imgL1 = "src/images/chars/nightKingArmy1.png";
     protected String imgL2 = "src/images/chars/dannyArmy1.png";
     protected String imgL3 = "src/images/chars/cersieArmy1.png";
+    protected int XCord;
 
     public Zombies(int x){
 
@@ -128,4 +129,5 @@ public class Zombies{
     public ImageView getImageView(){
         return this.imageView;
     }
+
 }

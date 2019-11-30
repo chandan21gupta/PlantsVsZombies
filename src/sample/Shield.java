@@ -1,14 +1,13 @@
 package sample;
 
-public class Danny extends Plant {
-
+public class Shield extends Plant {
     public class JonSnow extends Plant{
 
         {
-            this.cost = 200;
-            this.health = 150;
-            this.damage = 40;
-            this.img = "src/sample/danny.png";
+            this.health = 300;
+            this.damage = 0;
+            this.img = "src/sample/shield.png";
+            this.cost=50;
         }
 
         @Override
@@ -41,10 +40,5 @@ public class Danny extends Plant {
             return super.getDamage();
         }
 
-        @Override
-        public void setXCord(int i) {
-            super.setXCord(i);
-        }
     }
-
 }

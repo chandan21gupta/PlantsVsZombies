@@ -43,6 +43,8 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     private ArrayList<Zombies> zombies = new ArrayList<>();
     private ArrayList<Advice> advices = new ArrayList<>();
+    private ArrayList<Sword> swords = new ArrayList<>();
+    private ArrayList<Plant> plants = new ArrayList<>();
 
 
     private String current_plant = null;
@@ -58,10 +60,11 @@ public class Level_One_Controller extends Application implements Initializable, 
         System.out.println("y: "+ event.getY());
     }
 
-    public void generateSword(double x, double y) {
-        Sword sword = new Sword(x,y);
-        ImageView imageView = sword.getImage();
-        gameScreen.getChildren().add(imageView);
+    public void generateSword(int x,int y) {
+        Sword sword = new Sword();
+        ImageView imageViewSw = sword.getImage(x,y);
+        swords.add(sword);
+        gameScreen.getChildren().add(imageViewSw);
     }
 
     public void addPlant(MouseEvent event) throws URISyntaxException {
@@ -69,11 +72,12 @@ public class Level_One_Controller extends Application implements Initializable, 
             return;
         String img_url = null;
         Image image = null;
+        Plant plt = new JonSnow();
         //double x = 0;
         //double y = 0;
         if (current_plant.equals("jonSnow")) {
-            Plant jonSnow = new JonSnow();
-            img_url = jonSnow.getName();
+            plt = new JonSnow();
+            img_url = plt.getName();
 //            System.out.println(img_url);
         }
         try {
@@ -93,6 +97,8 @@ public class Level_One_Controller extends Application implements Initializable, 
         int[] value;
         try {
             value = getBox(event.getX(), event.getY());
+            plt.setXCord(value[1]);
+            plt.setYCord(value[0]);
             double x = event.getX();
             double y = event.getY();
             //System.out.println(value[0] + " " + value[1]);
@@ -102,13 +108,15 @@ public class Level_One_Controller extends Application implements Initializable, 
             //System.out.println(gridX);
 //            gameScreen
             gridX.add(imageView, value[0], value[1]);
+//            generateSword(value[1]);
         }
         catch (InvalidArguement invalidArguement) {
             System.out.println("error");
         }
-
+        plants.add(plt);
         current_plant = null;
-        generateSword(imageView.getX(),imageView.getY());
+
+
     }
 
     private int[] getBox(double x, double y) throws InvalidArguement {
@@ -286,6 +294,41 @@ public class Level_One_Controller extends Application implements Initializable, 
 
             }
         }, 0, 2*100);
+
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(()->{
+                    int i = 0;
+                    while(i<swords.size()){
+//                        System.out.println("hi");
+                        Sword s = swords.get(i);
+                        s.move();
+                        s.getImageView().setX(s.getX());
+                        i+=1;
+                    }
+
+                });
+            }
+        }, 0, 1*100);
+
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(()->{
+                    int i = 0;
+                    while(i<plants.size()){
+//                        System.out.println("hi");
+                        Plant p = plants.get(i);
+                        generateSword(p.xCord,p.yCord);
+//                        p.move();
+//                        p.getImageView().setX(s.getX());
+                        i+=1;
+                    }
+
+                });
+            }
+        }, 0, 4*1000);
     }
 
     @Override

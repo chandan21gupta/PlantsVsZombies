@@ -83,4 +83,7 @@ public class NormalZombie extends Zombies{
     public ImageView getImageView() {
         return super.getImageView();
     }
+
+
+
 }
