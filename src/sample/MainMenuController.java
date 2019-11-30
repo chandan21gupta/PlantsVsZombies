@@ -22,7 +22,7 @@ public class MainMenuController {
         //Parent gameScreen = FXMLLoader.load(getClass().getResource("playScreen.fxml"));
         System.out.println(id);
         if(id.equals("startGame")) {
-            Game game = new Game(new Level(1,0),event,0);
+            Game game = new Game(new Level(3,0),event,0);
         }
         else if (id.equals("selectLevel")){
             Parent newPane = FXMLLoader.load(getClass().getResource("SelectLevel.fxml"));

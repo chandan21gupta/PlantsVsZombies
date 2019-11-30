@@ -17,15 +17,21 @@ public class Level {
     FXMLLoader gameScreen;
     Level_One_Controller controller ;
     {
-        lev.add("playScreen");
-        lev.add("Level2");
-        lev.add("Level3");
-        lev.add("Level4");
-        name = lev.get(level-1)+".fxml";
+//        lev.add("playScreen");
+////        lev.add("Level2");
+////        lev.add("Level3");
+////        lev.add("Level4");
+//        name = lev.get(level-1)+".fxml";
     }
 
     Level(int level,int load) {
         controller = new Level_One_Controller(load,level);
+        if (level==1){
+            name = "playScreen.fxml";
+        }
+        else{
+            name = "playScreen"+Integer.toString(level)+".fxml";
+        }
 
         this.level = level;
         if(this.level == 1) {

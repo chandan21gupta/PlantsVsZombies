@@ -144,7 +144,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     public void generatePlant(MouseEvent event) {
        current_plant = event.getPickResult().getIntersectedNode().getId();
-//       System.out.println(current_plant);
+       System.out.println(current_plant);
 //       this.startAnimation();
     }
 
@@ -179,18 +179,22 @@ public class Level_One_Controller extends Application implements Initializable, 
             plt = new Shield();
             price = plt.getCost();
             img_url = plt.getName();
+            System.out.println(img_url);
         } else if (current_plant.equals("arya")) {
             plt = new Arya();
             price = plt.getCost();
             img_url = plt.getName();
+            System.out.println(img_url);
         } else if (current_plant.equals("tyrion")) {
             plt = new Tyrion();
             price = plt.getCost();
             img_url = plt.getName();
+            System.out.println(img_url);
         } else if (current_plant.equals("danny")) {
             plt = new Danny();
             price = plt.getCost();
             img_url = plt.getName();
+            System.out.println(img_url);
         }
         if (price > Integer.parseInt(scoreX.getText())) {
             counter = counter;
@@ -432,6 +436,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             }
         });
     }
+
     public void ScoreCounter(int val){
         counter = Integer.valueOf(scoreX.getText())+val;
         scoreX.setText(Integer.toString(counter));
@@ -541,6 +546,27 @@ public class Level_One_Controller extends Application implements Initializable, 
         System.exit(1);
     }
 
+    public void generateAdvices(int x, int y){
+        String img_url = null;
+        Image image = null;
+        Advice advice = new Advice();
+        ImageView imageView = advice.getImageView();
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(20);
+        advice.setCoordinates(x,y);
+        advices.add(advice);
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Advices clicked");
+                gameScreen.getChildren().remove(imageView);
+                ScoreCounter(50);
+                event.consume();
+
+            }
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -586,7 +612,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                     }
                     else{
                         //System.out.println(timerX);
-                        //System.out.println(seconds);
+                        System.out.println(seconds);
                         int a = r.nextInt(3);
                         generateZombies(a);
                         generateAdvice();
@@ -643,7 +669,8 @@ public class Level_One_Controller extends Application implements Initializable, 
                             generateSword(p.xCord, p.yCord);
                         }
                         else if(p.getFlag()==2){
-                            //do something
+                            System.out.println("here");
+                            generateAdvices(p.xCord,p.yCord);
                         }
                         else{
                             //nothing;
