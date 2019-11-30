@@ -61,11 +61,19 @@ public class Level_One_Controller extends Application implements Initializable, 
         System.out.println("y: "+ event.getY());
     }
 
+    public void generateSword(double x, double y) {
+        Sword sword = new Sword(x,y);
+        ImageView imageView = sword.getImage();
+        gameScreen.getChildren().add(imageView);
+    }
+
     public void addPlant(MouseEvent event) throws URISyntaxException {
         if (current_plant == null)
             return;
         String img_url = null;
         Image image = null;
+        //double x = 0;
+        //double y = 0;
         if (current_plant.equals("jonSnow")) {
             Plant jonSnow = new JonSnow();
             img_url = jonSnow.getName();
@@ -103,6 +111,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         }
 
         current_plant = null;
+        generateSword(imageView.getX(),imageView.getY());
     }
     public int[] getBox ( double x, double y) throws InvalidArguement {
         int cordX = 0;
@@ -259,23 +268,23 @@ public class Level_One_Controller extends Application implements Initializable, 
                 });
             }
         }, 0, seconds*1000);
-        t.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(()->{
-                    int i=0;
-
-                    while(iterZombie.hasNext()){
-//                        System.out.println(gameScreen.getChildren().get(i).getBoundsInLocal());
-                        Zombies z = (Zombies) iterZombie.next();
-                        z.move();
-                        z.getImageView().setX(z.getX());
-                        i+=1;
-                    }
-                });
-
-            }
-        }, 0, 5*100);
+//        t.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Platform.runLater(()->{
+//                    int i=0;
+//
+//                    while(iterZombie.hasNext()){
+////                        System.out.println(gameScreen.getChildren().get(i).getBoundsInLocal());
+//                        Zombies z = (Zombies) iterZombie.next();
+//                        z.move();
+//                        z.getImageView().setX(z.getX());
+//                        i+=1;
+//                    }
+//                });
+//
+//            }
+//        }, 0, 5*100);
     }
 
     @Override
