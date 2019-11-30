@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1054.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AboutController">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="529.0" prefWidth="1049.0">
+         <children>
+            <ImageView fitHeight="545.0" fitWidth="1253.0" layoutX="-56.0" layoutY="1.0" opacity="0.51">
+               <image>
+                  <Image url="@../images/background@2x.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="98.0" fitWidth="213.0" layoutX="454.0">
+               <image>
+                  <Image url="@../images/gameButton/about.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="174.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is Game of Thrones version of Plants vs Zombies. Here the plants are the most fav. characters of Game of thrones who everyone loves and zombies are the monsters as we call them. The game isdivided into multiple levels where each level is a different war of Game of thrones. The first level isintroduction to levels and basic controls of the game." wrappingWidth="742.13671875" />
+            <ImageView fitHeight="92.0" fitWidth="200.0" layoutX="460.0" layoutY="164.0">
+               <image>
+                  <Image url="@../images/gameButton/heroes.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="77.0" fitWidth="39.0" layoutX="174.0" layoutY="235.0">
+               <image>
+                  <Image url="@../images/chars/johnSnow.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="58.0" fitWidth="69.0" layoutX="159.0" layoutY="350.0">
+               <image>
+                  <Image url="@../images/chars/ghostX.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="73.0" fitWidth="34.0" layoutX="874.0" layoutY="289.0">
+               <image>
+                  <Image url="@../images/chars/tyrion.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="66.0" fitWidth="22.0" layoutX="880.0" layoutY="392.0">
+               <image>
+                  <Image url="@../images/chars/arya.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="77.0" fitWidth="29.0" layoutX="179.0" layoutY="445.0">
+               <image>
+                  <Image url="@../images/chars/danny.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="284.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Our beloed John Snow is actually the main Hero of the Story. He is not the one with maximum power but with maximum damage. Cost 100 Advices." wrappingWidth="572.951171875" />
+            <Text layoutX="287.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is Tyrion, his advices have always helped win the war and so will his advices this time around. He generates advices to be used by user to buy other Heros or Tyrion Itself" wrappingWidth="542.25390625" />
+            <Text layoutX="286.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghost, Isnt she cute? She is protector of the Realm the true knight. The last wall of defence before the enemy enter the fort" wrappingWidth="567.7734375" />
+            <Text layoutX="280.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meet Arya, She is the mystic women. The special power is that she can turn into any of the said hero at any time at her own will. But that comes with a price, she costs around 250 advices" wrappingWidth="579.076171875" />
+            <Text layoutX="281.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Mother of the Dragons and the true Queen. She is the most powerful Hero of them all. Her attack power is twice John and she is also in love with him. Her cost is around 200 Advices" wrappingWidth="574.185546875" />
+         </children></AnchorPane>
+  </content>
+</ScrollPane>
