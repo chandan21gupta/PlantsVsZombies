@@ -7,7 +7,7 @@ public class Arya extends Plant {
         this.cost = 150;
         this.health = 250;
         this.damage = 50;
-        this.img = "src/sample/arya.png";
+        this.img = "src/images/chars/arya.png";
         this.isShooter=1;
     }
 

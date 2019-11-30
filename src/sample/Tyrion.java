@@ -7,7 +7,7 @@ public class Tyrion extends Plant{
         {
             this.health = 50;
             this.damage = 0;
-            this.img = "src/sample/tyrion.png";
+            this.img = "src/images/chars/tyrion.png";
             this.cost = 50;
             this.isShooter = 2;
         }

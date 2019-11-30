@@ -8,7 +8,7 @@ public class Danny extends Plant {
             this.cost = 200;
             this.health = 150;
             this.damage = 40;
-            this.img = "src/sample/danny.png";
+            this.img = "src/images/chars/danny.png";
             this.isShooter = 1;
         }
 
