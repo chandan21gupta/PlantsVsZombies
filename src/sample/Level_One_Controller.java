@@ -75,6 +75,7 @@ class MyTimer implements java.lang.Runnable{
         }
         else {
             i = 300;
+            //nothing
         }
         while (i>0){
             //System.out.println("Remaining: "+i+" seconds");
