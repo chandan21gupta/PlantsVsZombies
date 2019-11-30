@@ -42,6 +42,11 @@ public class Level_One_Controller extends Application implements Initializable, 
     boolean flag;
     int timerX = 0;
     int seconds = 5;
+    transient int deserialized;
+
+    public Level_One_Controller(int a){
+        this.deserialized = a;
+    }
 
     public ArrayList<Zombies> zombies = new ArrayList<>();
     public ArrayList<Advice> advices = new ArrayList<>();
@@ -140,16 +145,17 @@ public class Level_One_Controller extends Application implements Initializable, 
         }
     }
 
-    public void checkZombieHealth() {
+    public void checkZombieHealth() throws InvalidArguement {
         Iterator<Zombies> j = zombies.iterator();
-        while(j.hasNext()) {
+        while (j.hasNext()) {
             Zombies zombie = j.next();
-            if(zombie.getHealth()<=0) {
+            if (zombie.getHealth() <= 0) {
                 //System.out.println("zombie's health "+zombie.getHealth());
                 gameScreen.getChildren().remove(zombie.getImageView());
                 j.remove();
             }
         }
+    }
 
 
     public void checkPlantCollision() {
@@ -326,24 +332,24 @@ public class Level_One_Controller extends Application implements Initializable, 
         translate.play();
     }
 
-    public void desearlize(String name){
+    public void desearlize(){
         ObjectInputStream in = null;
-        String fileName = name +".txt";
-        try{
-//            FileInputStream fis = new FileInputStream("student.ser");
-            in = new ObjectInputStream(new FileInputStream(fileName));
-            x = (Level_One_Controller) in.readObject();
-            System.out.println("deserialized");
-//            this.val = x.getVal();
-//            this.numTramp = x.getNumTrampoline();
-//            this.numCrickets = x.getNumCricket();
-//            this.numVultures = x.getNumVulture();
-//            this.numSnake = x.getNumSnake();
-//            this.numRoll = x.getRollVal();
-//            System.out.println("Number of tiles restored to "+ x.getVal());
+        String fileName = "filesave.txt";
+        try {
+            Level_One_Controller data = (Level_One_Controller) ResourceManager.load(fileName);
+            this.zombies_coordinates = data.zombies_coordinates;
+            this.advices_coordinates = data.advices_coordinates;
+            this.swords_coordinates = data.swords_coordinates;
+            this.plants_coodrdinates = data.plants_coodrdinates;
+            this.timerX = data.timerX;
+            this.flag = data.flag;
+            this.seconds = data.seconds;
+//            this.gameScreen = data.gameScreen;
+//            this.gridX = data.gridX;
+            System.out.println("Success");
         }
-        catch (Exception e) {
-            x = new Level_One_Controller();
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -362,7 +368,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 //        catch (Exception e){
 //            e.printStackTrace();
 //        }
-        Level_One_Controller data = new Level_One_Controller();
+        Level_One_Controller data = new Level_One_Controller(1);
 //        data.zombies = this.zombies;
 //        data.advices = this.advices;
 //        data.swords = this.swords;
@@ -397,7 +403,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         data.swords_coordinates = swords_coordinates;
         data.advices_coordinates = advices_coordinates;
         try {
-            ResourceManager.save(data, "savefile");
+            ResourceManager.save(data, "filesave.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -421,6 +427,14 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        if (deserialized==1){
+            desearlize();
+        }
+
+
+
 //        int seconds = 0;
         t = new Timer();
 //        seconds = 10;
@@ -514,7 +528,11 @@ public class Level_One_Controller extends Application implements Initializable, 
                     checkPlantCollision();
 //                    checkSwordCollision();
 //                    checkPlantCollision();
-                    checkZombieHealth();
+                    try {
+                        checkZombieHealth();
+                    } catch (InvalidArguement invalidArguement) {
+                        invalidArguement.printStackTrace();
+                    }
                     checkPlantHealth();
                 });
             }
