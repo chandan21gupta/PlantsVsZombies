@@ -16,6 +16,15 @@ public class Advice implements Serializable {
     }
     double X;
     double Y;
+
+    public double getX() {
+        return X;
+    }
+
+    public double getY() {
+        return Y;
+    }
+
     public ImageView getImageView() {
         String img = null;
         Image image = null;
