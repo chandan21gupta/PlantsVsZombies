@@ -10,7 +10,7 @@ public class Sword {
     protected final String sword_url = "src/images/extraImages/sword.png";
 //    protected double x_coor;
 //    protected double y_coor;
-   int speed = 2;
+    int speed = 2;
     protected double X;
     protected double Y;
 

@@ -1,6 +1,8 @@
 package sample;
 
 
+import javafx.scene.image.ImageView;
+
 public class JonSnow extends Plant{
 
     {
@@ -48,5 +50,10 @@ public class JonSnow extends Plant{
     @Override
     public void setYCord(int z) {
         super.setYCord(z);
+    }
+
+    @Override
+    public ImageView getImage() {
+        return super.getImage();
     }
 }

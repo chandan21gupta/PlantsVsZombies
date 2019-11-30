@@ -99,6 +99,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             value = getBox(event.getX(), event.getY());
             plt.setXCord(value[1]);
             plt.setYCord(value[0]);
+            plt.setCoordinates(value[1],value[0]);
             double x = event.getX();
             double y = event.getY();
             //System.out.println(value[0] + " " + value[1]);
@@ -117,6 +118,51 @@ public class Level_One_Controller extends Application implements Initializable, 
         current_plant = null;
 
 
+    }
+
+    public void checkPlantCollision() {
+        for(int i = 0; i < plants.size(); i++)
+        {
+            for(int j = 0; j < zombies.size(); j++)
+            {
+                Plant plant = plants.get(i);
+                Zombies zombie = zombies.get(j);
+
+                if(plant.X < zombie.getImageView().getX() + (zombie.getImageView().getFitWidth()) &&
+                        plant.X + (plant.getImage().getFitWidth()) > zombie.getImageView().getX() &&
+                        plant.Y < zombie.getImageView().getY() + (zombie.getImageView().getFitHeight()) &&
+                        plant.Y + (plant.getImage().getFitHeight()) > zombie.getImageView().getY())
+                {
+                    //plants.remove(plant);
+                    //gameScreen.getChildren().remove(plant.getImage());
+                    System.out.println("remove plant");
+                    //System.exit(1);
+                    continue;
+                }
+            }
+        }
+    }
+
+    public void checkSwordCollision() {
+        for(int i = 0; i < swords.size(); i++)
+        {
+            for(int j = 0; j < zombies.size(); j++)
+            {
+                Sword sword = swords.get(i);
+                Zombies zombie = zombies.get(j);
+
+                if(sword.getX() < zombie.getImageView().getX() + (zombie.getImageView().getFitWidth()) &&
+                        sword.getX() + (sword.getImageView().getFitWidth()) > zombie.getImageView().getX() &&
+                        sword.getY() < zombie.getImageView().getY() + (zombie.getImageView().getFitHeight()) &&
+                        sword.getY() + (sword.getImageView().getFitHeight()) > zombie.getImageView().getY())
+                {
+                    gameScreen.getChildren().remove(sword.getImageView());
+                    System.out.println("remove plant");
+                    //System.exit(1);
+                    continue;
+                }
+            }
+        }
     }
 
     private int[] getBox(double x, double y) throws InvalidArguement {
@@ -329,6 +375,16 @@ public class Level_One_Controller extends Application implements Initializable, 
                 });
             }
         }, 0, 4*1000);
+
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    checkPlantCollision();
+                    checkSwordCollision();
+                });
+            }
+        },0,100);
     }
 
     @Override

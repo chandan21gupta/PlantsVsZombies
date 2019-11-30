@@ -86,7 +86,7 @@ public class Zombies{
             File file = new File(img_url);
 
             img_url = file.toURI().toURL().toExternalForm();
-            System.out.println(img_url);
+           // System.out.println(img_url);
             image = new Image(img_url);
         }
         catch(Exception e) {
@@ -123,7 +123,7 @@ public class Zombies{
             imageView.setY((double) 331);
             Y = (double) 331;
         }
-        System.out.println(imageView.getY());
+        //System.out.println(imageView.getY());
     }
 
     public ImageView getImageView(){
