@@ -8,6 +8,7 @@ public class Arya extends Plant {
         this.health = 250;
         this.damage = 50;
         this.img = "src/sample/arya.png";
+        this.isShooter=1;
     }
 
     @Override

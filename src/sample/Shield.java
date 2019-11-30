@@ -9,6 +9,7 @@ public class Shield extends Plant {
             this.damage = 0;
             this.img = "src/sample/shield.png";
             this.cost=50;
+            this.isShooter = 0;
         }
 
         @Override

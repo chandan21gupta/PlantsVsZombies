@@ -17,6 +17,7 @@ public class Plant implements Serializable {
     public double X;
     public double Y;
     public ImageView imageViewX = new ImageView();
+    int isShooter;
     //ArrayList<Sword> swords = new ArrayList<Sword>();
 
     public Plant() {
@@ -124,5 +125,9 @@ public class Plant implements Serializable {
 
     public ImageView getImageView(){
         return this.imageViewX;
+    }
+
+    public int getFlag(){
+        return isShooter;
     }
 }

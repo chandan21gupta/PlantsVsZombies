@@ -10,6 +10,7 @@ public class JonSnow extends Plant{
         this.damage = 10;
         this.img = "src/sample/johnSnow.png";
         this.cost = 100;
+        this.isShooter = 1;
     }
 
     @Override

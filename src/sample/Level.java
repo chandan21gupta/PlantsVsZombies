@@ -25,13 +25,7 @@ public class Level {
     }
 
     Level(int level,int load) {
-
-        if (load==1){
-            controller = new Level_One_Controller(1);
-        }
-        else {
-            controller = new Level_One_Controller(0);
-        }
+        controller = new Level_One_Controller(load,level);
 
         this.level = level;
         if(this.level == 1) {

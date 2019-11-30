@@ -49,10 +49,13 @@ public class Level_One_Controller extends Application implements Initializable, 
     int seconds = 5;
     transient int deserialized;
     int counter;
+    int level;
 
-    public Level_One_Controller(int a){
+    public Level_One_Controller(int a, int level){
         this.deserialized = a;
+        this.level = level;
     }
+
 
     public ArrayList<Zombies> zombies = new ArrayList<>();
     public ArrayList<Advice> advices = new ArrayList<>();
@@ -416,8 +419,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
 
     public void serialize(){
-
-        Level_One_Controller data = new Level_One_Controller(1);
+        Level_One_Controller data = new Level_One_Controller(this.deserialized,this.level);
         data.timerX = this.timerX;
         data.flag = this.flag;
         data.seconds = this.seconds;
@@ -567,7 +569,15 @@ public class Level_One_Controller extends Application implements Initializable, 
                     while(i<plants.size()){
 //                        System.out.println("hi");
                         Plant p = plants.get(i);
-                        generateSword(p.xCord,p.yCord);
+                        if (p.getFlag()==1) {
+                            generateSword(p.xCord, p.yCord);
+                        }
+                        else if(p.getFlag()==2){
+                            //do something
+                        }
+                        else{
+                            //nothing;
+                        }
 //                        p.move();
 //                        p.getImageView().setX(s.getX());
                         i+=1;

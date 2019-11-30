@@ -9,6 +9,7 @@ public class Danny extends Plant {
             this.health = 150;
             this.damage = 40;
             this.img = "src/sample/danny.png";
+            this.isShooter = 1;
         }
 
         @Override
