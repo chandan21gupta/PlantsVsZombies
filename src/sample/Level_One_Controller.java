@@ -357,17 +357,17 @@ public class Level_One_Controller extends Application implements Initializable, 
         ImageView image = null;
         Zombies zombie;
         if (a==0){
-            zombie = new NormalZombie(1);
+            zombie = new NormalZombie(level);
         }
         else if (a==1){
-            zombie = new NormalZombie1(1);
+            zombie = new NormalZombie1(level);
         }
         else{
-            zombie = new NormalZombie2(1);
+            zombie = new NormalZombie2(level);
         }
 
         if (timerX >=110 & !flag){
-            zombie = new SpecialZombie(1);
+            zombie = new SpecialZombie(level);
             flag = true;
         }
 
@@ -493,7 +493,6 @@ public class Level_One_Controller extends Application implements Initializable, 
         }
     }
 
-
     public void serialize(){
         Level_One_Controller data = new Level_One_Controller(this.deserialized,this.level);
         data.timerX = this.timerX;
@@ -552,15 +551,18 @@ public class Level_One_Controller extends Application implements Initializable, 
         Advice advice = new Advice();
         ImageView imageView = advice.getImageView();
         imageView.setFitHeight(30);
-        imageView.setFitWidth(20);
+        imageView.setFitWidth(25);
         advice.setCoordinates(x,y);
+        imageView.setX(advice.getX());
+        imageView.setY(advice.getY());
+        gameScreen.getChildren().add(imageView);
         advices.add(advice);
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Advices clicked");
                 gameScreen.getChildren().remove(imageView);
-                ScoreCounter(50);
+                ScoreCounter(25);
                 event.consume();
 
             }
@@ -618,9 +620,10 @@ public class Level_One_Controller extends Application implements Initializable, 
                         generateAdvice();
 //                        generateZombies();
                     }
+
                 });
             }
-        }, 0, seconds*1000);
+        }, 0, (seconds+6)*1000);
 
         //Makes the Zombies Move
         t.schedule(new TimerTask() {
@@ -640,6 +643,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             }
         }, 1000, 2*100);
 
+        //Generate Sword
         t.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -668,15 +672,6 @@ public class Level_One_Controller extends Application implements Initializable, 
                         if (p.getFlag()==1) {
                             generateSword(p.xCord, p.yCord);
                         }
-                        else if(p.getFlag()==2){
-                            System.out.println("here");
-                            generateAdvices(p.xCord,p.yCord);
-                        }
-                        else{
-                            //nothing;
-                        }
-//                        p.move();
-//                        p.getImageView().setX(s.getX());
                         i+=1;
                     }
 
@@ -701,6 +696,33 @@ public class Level_One_Controller extends Application implements Initializable, 
                 });
             }
         },0,1);
+
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(()->{
+                    int z = 0;
+                    while (z<plants.size()){
+                        Plant p = plants.get(z);
+                        if(p.getFlag()==2){
+                            System.out.println("here");
+                            generateAdvices(p.xCord,p.yCord);
+                        }
+                        z+=1;
+                    }
+
+                });
+            }
+        }, 0, 7*1000);
+
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+            Platform.runLater(()->{
+                generateAdvice();
+            });
+        }
+        },5,4000);
     }
 
     @Override

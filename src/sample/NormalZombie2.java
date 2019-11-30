@@ -10,7 +10,7 @@ public class NormalZombie2 extends Zombies{
     public NormalZombie2(int x) {
         super(x);
         this.speed = 9;
-        this.health = 250;
+        this.health = 150;
         this.damage = 15;
         this.imgL1 = "src/images/chars/nightKingArmy2.png";
         this.imgL2 = "src/images/chars/dannyArmy3.png";
