@@ -40,7 +40,8 @@ public class MainMenuController {
             window.setScene(gameScene);
             window.show();
         }
-        else if(id.equals("exit")) {
+        else if(id.equals("exitGame")) {
+            //System.out.println("Exiting...");
             System.exit(1);
         }
 
