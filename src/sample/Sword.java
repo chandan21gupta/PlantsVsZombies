@@ -16,7 +16,7 @@ public class Sword {
         y_coor = y;
         Image image = null;
         String img_url = this.sword_url;
-//        System.out.println("src/images/extraImages/sword.png");
+        System.out.println(img_url);
         try {
             File file = new File(img_url);
 
