@@ -10,7 +10,7 @@ public class Zombies implements Serializable {
     protected float health = 100;
     protected float damage = 10;
     protected int speed = 5;
-    protected int tempSpeed;
+    protected int tempSpeed = speed;
     protected int levelX = 1;
     protected double X;
     protected double Y;
@@ -20,6 +20,7 @@ public class Zombies implements Serializable {
     protected String imgL3 = "src/images/chars/cersieArmy1.png";
     protected int XCord;
     protected boolean flag = true;
+    boolean canMove;
 
     public Zombies(int x){
 
@@ -131,7 +132,6 @@ public class Zombies implements Serializable {
     }
 
     public void setSpeed(int speed) {
-        this.tempSpeed = this.speed;
         if (speed==-1){
             this.speed = tempSpeed;
         }

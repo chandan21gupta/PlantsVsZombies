@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 //import javafx.application.Application;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
@@ -244,9 +245,23 @@ public class Level_One_Controller extends Application implements Initializable, 
             if(plant.getHealth()<=0) {
                 System.out.println("Plant's Health: "+plant.getHealth());
                 //plant.getImageView().setImage(null);
-                gridX.getChildren().remove(plant.getImageView());
+//                System.out.println(plant.xCord);
+//                System.out.println(plant.yCord);
+                getNodeByRowColumnIndex(plant.xCord,plant.yCord,gridX);
+//                gridX.getChildren().remove(plant.xCord,plant.yCord);
                 //System.out.println(plant);
                 i.remove();
+            }
+        }
+    }
+    public void getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> childrens = gridPane.getChildren();
+
+        for (Node node : childrens) {
+            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+                childrens.remove(node);
+                break;
             }
         }
     }
@@ -259,6 +274,13 @@ public class Level_One_Controller extends Application implements Initializable, 
                 //System.out.println("zombie's health "+zombie.getHealth());
                 gameScreen.getChildren().remove(zombie.getImageView());
                 j.remove();
+            }
+            else{
+                if (zombie.speed==0){
+//                    zombie.setHealth(zombie.getHealth()-50);
+                    System.out.println(zombie.getHealth());
+                    zombie.setSpeed(-1);
+                }
             }
         }
     }
@@ -273,11 +295,21 @@ public class Level_One_Controller extends Application implements Initializable, 
 
                 Zombies zombie = zombies.get(j);
 
-                if(Math.abs(plant.X - zombie.getImageView().getX()) < 10 && (plant.Y == zombie.getImageView().getY()))
+                if(Math.abs(plant.X - zombie.getImageView().getX()) < 30 && (plant.Y == zombie.getImageView().getY()))
                 {
-                    zombie.setSpeed(0);
-                    zombie.setHealth(zombie.getHealth()-plant.getDamage());
+                    if (!zombie.canMove) {
+                        zombie.setSpeed(0);
+                    }
                     plant.setHealth(plant.getHealth()-zombie.getDamage());
+                    System.out.println(plant.getHealth());
+                    if (plant.getHealth()<=0){
+                        zombie.canMove = true;
+                        checkPlantHealth();
+                        zombie.setSpeed(-1);
+
+                    }
+//                    zombie.setHealth(zombie.getHealth()-plant.getDamage());
+//                    plant.setHealth(plant.getHealth()-zombie.getDamage());
 //                    zombie.setFlag(false);
                     break;
                 }
@@ -294,7 +326,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             {
                 Zombies zombie = zombies.get(j);
 
-                if((Math.abs(sword.getX()- zombie.getImageView().getX())<10 )&& (sword.getY() == zombie.getImageView().getY()))
+                if((Math.abs(sword.getX()- zombie.getImageView().getX())<20 )&& (sword.getY() == zombie.getImageView().getY()))
                 {   if (!sword.flag)
                     {
                         System.out.println(zombie);
@@ -396,21 +428,21 @@ public class Level_One_Controller extends Application implements Initializable, 
         }
         else if (z==1){
             imageView.setX(286);
-            imageView.setY(40);
+            imageView.setY(15);
         }
         else if (z==2){
             imageView.setX(362);
-            imageView.setY(51);
+            imageView.setY(15);
             //gridX.add(imageView,3,0);
         }
         else if (z==3){
             imageView.setX(371);
-            imageView.setY(47);
+            imageView.setY(15);
             //gridX.add(imageView,4,0);
         }
         else{
             imageView.setX(508);
-            imageView.setY(42);
+            imageView.setY(15);
             //gridX.add(imageView,5,0);
         }
         gameScreen.getChildren().add(imageView);
@@ -418,7 +450,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         advices.add(advice);
         TranslateTransition translate = new TranslateTransition();
         translate.setDuration(Duration.seconds(5));
-        translate.setToY(371);
+        translate.setToY(400);
         translate.setNode(imageView);
         translate.setByY(imageView.getY());
         //translate.setToX();
@@ -617,13 +649,13 @@ public class Level_One_Controller extends Application implements Initializable, 
                         System.out.println(seconds);
                         int a = r.nextInt(3);
                         generateZombies(a);
-                        generateAdvice();
+//                        generateAdvice();
 //                        generateZombies();
                     }
 
                 });
             }
-        }, 0, (seconds+6)*1000);
+        }, 5000, (seconds+6)*1000);
 
         //Makes the Zombies Move
         t.schedule(new TimerTask() {
@@ -641,7 +673,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                 });
 
             }
-        }, 1000, 2*100);
+        }, 1000, 4*100);
 
         //Generate Sword
         t.schedule(new TimerTask() {
@@ -695,7 +727,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                     checkPlantHealth();
                 });
             }
-        },0,1);
+        },0,100);
 
         t.schedule(new TimerTask() {
             @Override
@@ -713,7 +745,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
                 });
             }
-        }, 0, 7*1000);
+        }, 4000, 7*1000);
 
         t.schedule(new TimerTask() {
             @Override
@@ -722,7 +754,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                 generateAdvice();
             });
         }
-        },5,4000);
+        },5000,4000);
     }
 
     @Override

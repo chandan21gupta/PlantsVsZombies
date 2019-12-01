@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 public class Shield extends Plant {
 
         {
-            this.health = 300;
+            this.health = 100;
             this.damage = 0;
             this.img = "src/images/chars/shield.png";
             this.cost=50;
