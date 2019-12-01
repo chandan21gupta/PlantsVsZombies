@@ -329,8 +329,8 @@ public class Level_One_Controller extends Application implements Initializable, 
                 if((Math.abs(sword.getX()- zombie.getImageView().getX())<20 )&& (sword.getY() == zombie.getImageView().getY()))
                 {   if (!sword.flag)
                     {
-                        System.out.println(zombie);
-                        System.out.println(sword);
+//                        System.out.println(zombie);
+//                        System.out.println(sword);
                         System.out.println("Zombie's health before " + zombie.getHealth());
                         zombie.setHealth(zombie.getHealth() - sword.getDamage());
                         //zombie.setFlag(false);
