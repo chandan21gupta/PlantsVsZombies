@@ -638,7 +638,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         System.out.println(data.gameScreen);
         exit();
     }
-
+    //do nothing
     public void exit(){
         System.exit(1);
     }
