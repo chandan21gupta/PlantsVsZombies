@@ -85,7 +85,7 @@ class MyTimer implements java.lang.Runnable{
             try {
                 i--;
                 Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
-                if(i == 0 && zombies.size() == 0) {
+                if(zombies.size() == 0) {
                     throw new WinnerException("You Won");
                 }
                 else if(i == 0 && zombies.size() > 0) {
