@@ -5,6 +5,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.animation.AnimationTimer;
@@ -14,13 +15,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -46,9 +50,11 @@ class MyTimer implements java.lang.Runnable{
 
     int level;
     ArrayList<Zombies> zombies = new ArrayList<Zombies>();
-    MyTimer(int level,ArrayList<Zombies> zombies) {
+    AnchorPane gameScene;
+    MyTimer(int level,ArrayList<Zombies> zombies,AnchorPane gameScene) {
         this.level = level;
         this.zombies = zombies;
+        this.gameScene = gameScene;
     }
 
     @Override
@@ -72,13 +78,14 @@ class MyTimer implements java.lang.Runnable{
         }
         else {
             i = 300;
+            //nothing
         }
         while (i>0){
             //System.out.println("Remaining: "+i+" seconds");
             try {
                 i--;
                 Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
-                if(i == 0 && zombies.size() == 0) {
+                if(i == 0) {
                     throw new WinnerException("You Won");
                 }
                 else if(i == 0 && zombies.size() > 0) {
@@ -86,7 +93,38 @@ class MyTimer implements java.lang.Runnable{
                 }
             }
             catch (WinnerException e) {
-                //I don't think you need to do anything for your particular problem
+                final Button winnerButton = new Button("Go to next level");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String fxml;
+                        if(level == 1) {
+                            fxml = "playScreen2.fxml";
+                        }
+                        else if(level == 2) {
+                            fxml = "playScreen3.fxml";
+                        }
+                        else if(level == 3) {
+                            fxml = "playScreen4.fxml";
+                        }
+                        else {
+                            fxml = "playScreen5.fxml";
+                        }
+                        //winnerButton = new Button("Go to next level");
+                        gameScene.getChildren().add(winnerButton);
+                        winnerButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                System.out.println("Hi");
+                                try {
+                                    Game game = new Game(new Level(2,0),actionEvent,0);
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
             }
             catch (LoserException e) {
                 System.out.println(e.getMessage());
@@ -604,7 +642,7 @@ public class Level_One_Controller extends Application implements Initializable, 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Thread thread = new Thread(new MyTimer(level,zombies));
+        Thread thread = new Thread(new MyTimer(level,zombies,gameScreen));
         thread.start();
 
         if (deserialized==1){
