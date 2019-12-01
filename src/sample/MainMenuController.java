@@ -31,7 +31,7 @@ public class MainMenuController {
             window.setScene(gameScene);
         }
         else if(id.equals("loadGame")) {
-            System.out.println("loadGame");
+            Game game = new Game(new Level(1,1),event,1);
         }
         else if (id.equals("aboutGame")){
             Parent newPane = FXMLLoader.load(getClass().getResource("AboutScreen.fxml"));

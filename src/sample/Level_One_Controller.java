@@ -65,7 +65,7 @@ class MyTimer implements java.lang.Runnable{
     public void runTimer(){
         int i = 0;
         if(this.level == 1) {
-            i = 2;
+            i = 60;
         }
         else if(this.level == 2) {
             i = 120;
@@ -85,7 +85,7 @@ class MyTimer implements java.lang.Runnable{
             try {
                 i--;
                 Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
-                if(i == 0) {
+                if(i == 0 && zombies.size() == 0) {
                     throw new WinnerException("You Won");
                 }
                 else if(i == 0 && zombies.size() > 0) {
@@ -97,18 +97,10 @@ class MyTimer implements java.lang.Runnable{
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        final String fxml;
-                        if(level == 1) {
-                            fxml = "playScreen2.fxml";
-                        }
-                        else if(level == 2) {
-                            fxml = "playScreen3.fxml";
-                        }
-                        else if(level == 3) {
-                            fxml = "playScreen4.fxml";
-                        }
-                        else {
-                            fxml = "playScreen5.fxml";
+                        final int nextLevel = level + 1;
+                        if(nextLevel == 6) {
+                            System.out.println("Game Won");
+                            return;
                         }
                         //winnerButton = new Button("Go to next level");
                         gameScene.getChildren().add(winnerButton);
@@ -452,6 +444,22 @@ public class Level_One_Controller extends Application implements Initializable, 
 
     }
 
+    public void checkZombieBoundary() {
+        Iterator i = zombies.iterator();
+        while(i.hasNext()) {
+            Zombies zombie = (Zombies)i.next();
+            try {
+                if (zombie.getImageView().getX() <= 100) {
+                    throw new LoserException("You Lose");
+                }
+            }
+            catch(LoserException e) {
+                e.getMessage();
+                System.exit(1);
+            }
+        }
+    }
+
     private void generateAdvice() {
         String img_url = null;
         Image image = null;
@@ -790,6 +798,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             public void run() {
             Platform.runLater(()->{
                 generateAdvice();
+                checkZombieBoundary();
             });
         }
         },5000,4000);
