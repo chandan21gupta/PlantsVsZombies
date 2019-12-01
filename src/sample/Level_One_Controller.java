@@ -46,89 +46,7 @@ class LoserException extends Exception {
     }
 }
 
-class MyTimer implements java.lang.Runnable{
 
-    int level;
-    ArrayList<Zombies> zombies = new ArrayList<Zombies>();
-    AnchorPane gameScene;
-    MyTimer(int level,ArrayList<Zombies> zombies,AnchorPane gameScene) {
-        this.level = level;
-        this.zombies = zombies;
-        this.gameScene = gameScene;
-    }
-
-    @Override
-    public void run() {
-        this.runTimer();
-    }
-
-    public void runTimer(){
-        int i = 0;
-        if(this.level == 1) {
-            i = 60;
-        }
-        else if(this.level == 2) {
-            i = 120;
-        }
-        else if(this.level == 3) {
-            i = 180;
-        }
-        else if(this.level == 4) {
-            i = 240;
-        }
-        else {
-            i = 300;
-            //nothing
-        }
-        while (i>0){
-            //System.out.println("Remaining: "+i+" seconds");
-            try {
-                i--;
-                Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
-                if(zombies.size() == 0) {
-                    throw new WinnerException("You Won");
-                }
-                else if(i == 0 && zombies.size() > 0) {
-                    throw new LoserException("You Lose");
-                }
-            }
-            catch (WinnerException e) {
-                final Button winnerButton = new Button("Go to next level");
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        final int nextLevel = level + 1;
-                        if(nextLevel == 6) {
-                            System.out.println("Game Won");
-                            return;
-                        }
-                        //winnerButton = new Button("Go to next level");
-                        gameScene.getChildren().add(winnerButton);
-                        winnerButton.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent actionEvent) {
-                                System.out.println("Hi");
-                                try {
-                                    Game game = new Game(new Level(nextLevel,0),actionEvent,0);
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-            //do nothing
-            catch (LoserException e) {
-                System.out.println(e.getMessage());
-            }
-            catch(InterruptedException e) {
-                //do nothing
-            }
-        }
-    }
-
-}
 
 class InvalidArguement extends Exception
 {
@@ -156,10 +74,21 @@ public class Level_One_Controller extends Application implements Initializable, 
     int level;
 
     int levelVal;
+    int levelX;
 
     public Level_One_Controller(int a, int level){
         this.deserialized = a;
         this.level = level;
+        if (level<3){
+            levelX = 1;
+        }
+        else if (level<5){
+            levelX = 2;
+        }
+        else {
+            levelX = 3;
+        }
+
         if(level==1){
             levelVal=10;
         }
@@ -437,17 +366,17 @@ public class Level_One_Controller extends Application implements Initializable, 
         ImageView image = null;
         Zombies zombie;
         if (a==0){
-            zombie = new NormalZombie(level);
+            zombie = new NormalZombie(levelX);
         }
         else if (a==1){
-            zombie = new NormalZombie1(level);
+            zombie = new NormalZombie1(levelX);
         }
         else{
-            zombie = new NormalZombie2(level);
+            zombie = new NormalZombie2(levelX);
         }
 
-        if (timerX >=110 & !flag){
-            zombie = new SpecialZombie(level);
+        if (timerX >=30 & !flag){
+            zombie = new SpecialZombie(levelX);
             flag = true;
         }
 
@@ -671,7 +600,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         Iterator i = swords.iterator();
         while(i.hasNext()){
             Sword sword = (Sword)i.next();
-            if(sword.getImageView().getX() > 150) {
+            if(sword.getImageView().getX() > 500) {
                 gameScreen.getChildren().remove(sword.getImageView());
                 i.remove();
             }
@@ -681,7 +610,7 @@ public class Level_One_Controller extends Application implements Initializable, 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Thread thread = new Thread(new MyTimer(level,zombies,gameScreen));
+        Thread thread = new Thread(new MyTimer());
         thread.start();
 
         if (deserialized==1){
@@ -730,7 +659,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                         if (level==1){
                             a=0;
                         }
-                        else if (level>+2) {
+                        else if (level>=2) {
                             a = r.nextInt(3);
                         }
                         generateZombies(a);
@@ -791,6 +720,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                         }
                         i+=1;
                     }
+                    checkSwordBoundary();
 
                 });
             }
@@ -838,7 +768,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             Platform.runLater(()->{
                 generateAdvice();
                 checkZombieBoundary();
-                checkSwordBoundary();
+
             });
         }
         },5000,4000);
@@ -853,5 +783,82 @@ public class Level_One_Controller extends Application implements Initializable, 
     public void start(Stage stage) throws Exception {
         //TranslateTransition translate = new TranslateTransition();
     }
+
+    class MyTimer implements java.lang.Runnable{
+
+        @Override
+        public void run() {
+            this.runTimer();
+        }
+
+        public void runTimer(){
+            int i = 0;
+            if(level == 1) {
+                i = 100;
+            }
+            else if(level == 2) {
+                i = 300;
+            }
+            else if(level == 3) {
+                i = 500;
+            }
+            else if(level == 4) {
+                i = 600;
+            }
+            else {
+                i = 700;
+                //nothing
+            }
+            while (i>0){
+                //System.out.println("Remaining: "+i+" seconds");
+                try {
+                    i--;
+                    Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
+                    System.out.println(zombies.size());
+                    if(zombies.size() == 0 && timerX>=levelVal) {
+                        throw new WinnerException("You Won");
+                    }
+                    else if(i == 0 && zombies.size() > 0) {
+                        throw new LoserException("You Lose");
+                    }
+                }
+                catch (WinnerException e) {
+                    final Button winnerButton = new Button("Go to next level");
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            final int nextLevel = level + 1;
+                            if(nextLevel == 6) {
+                                System.out.println("Game Won");
+                                return;
+                            }
+                            //winnerButton = new Button("Go to next level");
+                            gameScreen.getChildren().add(winnerButton);
+                            winnerButton.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent actionEvent) {
+                                    System.out.println("Hi");
+                                    try {
+                                        Game game = new Game(new Level(nextLevel,0),actionEvent,0);
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                //do nothing
+                catch (LoserException e) {
+                    System.out.println(e.getMessage());
+                }
+                catch(InterruptedException e) {
+                    //do nothing
+                }
+            }
+        }
+
+    }
+
 }
 
