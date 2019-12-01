@@ -118,6 +118,7 @@ class MyTimer implements java.lang.Runnable{
                     }
                 });
             }
+            //do nothing
             catch (LoserException e) {
                 System.out.println(e.getMessage());
             }
