@@ -136,9 +136,14 @@ class InvalidArguement extends Exception
 }
 
 public class Level_One_Controller extends Application implements Initializable, Runnable, Serializable {
-//    Level_One_Controller x;
+
+    //    Level_One_Controller x;
     private static final long serialVersionUID = 6529685098267757690L;
     Level_One_Controller x = this;
+
+    @FXML
+    public ImageView dog_1, dog_2, dog_3, dog_4, dog_5;
+
     @FXML
     public GridPane gridX;
     @FXML
@@ -459,16 +464,78 @@ public class Level_One_Controller extends Application implements Initializable, 
         zombies.add(zombie);
         //System.out.println("zombie");
         return zombie;
-
     }
 
+    public void dogMove(ImageView dog) {
+        while(dog.getX()<500) {
+            System.out.println("dogs running...");
+            dog.setX(dog.getX()+1);
+        }
+        gameScreen.getChildren().remove(dog);
+    }
+
+//98 157 222 281 340
     public void checkZombieBoundary() {
         Iterator i = zombies.iterator();
         while(i.hasNext()) {
             Zombies zombie = (Zombies)i.next();
             try {
                 if (zombie.getImageView().getX() <= 100) {
-                    throw new LoserException("You Lose");
+                    System.out.println("zombie entered");
+                    if (zombie.getImageView().getY() <= 118) {
+                        if (gameScreen.getChildren().contains(dog_1)) {
+                            //move dog;
+                            System.out.println("dogs entered");
+                            gameScreen.getChildren().remove(zombie.getImageView());
+                            i.remove();
+                            dogMove(dog_1);
+                        } else {
+                            throw new LoserException("You Lose");
+                        }
+                    }
+                    else if(zombie.getImageView().getY() == 183) {
+                        if(gameScreen.getChildren().contains(dog_2)) {
+                            gameScreen.getChildren().remove(zombie.getImageView());
+                            i.remove();
+                            //move dog;
+                            dogMove(dog_2);
+                        }
+                        else {
+                            throw new LoserException("You Lose");
+                        }
+                    }
+
+                    else if(zombie.getImageView().getY() <= 246) {
+                        if(gameScreen.getChildren().contains(dog_3)) {
+                            gameScreen.getChildren().remove(zombie.getImageView());
+                            i.remove();
+                            //move
+                            dogMove(dog_3);
+                        }
+                        else {
+                            throw new LoserException("You Lose");
+                        }
+                    }
+                    else if(zombie.getImageView().getY() <= 301) {
+                        if(gameScreen.getChildren().contains(dog_4)) {
+                            gameScreen.getChildren().remove(zombie.getImageView());
+                            i.remove();
+                            dogMove(dog_4);
+                        }
+                        else {
+                            throw new LoserException("You Lose");
+                        }
+                    }
+                    else if(zombie.getImageView().getY() <= 355) {
+                        if(gameScreen.getChildren().contains(dog_5)) {
+                            gameScreen.getChildren().remove(zombie.getImageView());
+                            i.remove();
+                            dogMove(dog_5);
+                        }
+                        else {
+                            throw new LoserException("You Lose");
+                        }
+                    }
                 }
             }
             catch(LoserException e) {

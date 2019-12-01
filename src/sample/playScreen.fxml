@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="gameScreen" onMousePressed="#onClickX" prefHeight="420.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="gameScreen" onMousePressed="#onClickX" prefHeight="420.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
 <!--<AnchorPane fx:id="gameScreen" onMousePressed="#onClickX" prefHeight="355.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Level_One_Controller">-->
    <children>
       <ImageView fitHeight="421.0" fitWidth="781.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
@@ -19,27 +13,27 @@
             <Image url="@../images/backgroundPlayArea2.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="59.0" fitWidth="76.0" layoutX="14.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dog_1" fitHeight="59.0" fitWidth="76.0" layoutX="14.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chars/ghostX.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="59.0" fitWidth="70.0" layoutX="14.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dog_2" fitHeight="59.0" fitWidth="70.0" layoutX="14.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chars/ghostX.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="59.0" fitWidth="70.0" layoutX="14.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dog_3" fitHeight="59.0" fitWidth="70.0" layoutX="14.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chars/ghostX.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="67.0" fitWidth="70.0" layoutX="14.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dog_4" fitHeight="67.0" fitWidth="70.0" layoutX="14.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chars/ghostX.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="59.0" fitWidth="70.0" layoutX="14.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dog_5" fitHeight="59.0" fitWidth="70.0" layoutX="14.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chars/ghostX.png" />
          </image>
