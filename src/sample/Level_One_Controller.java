@@ -369,7 +369,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                     {
 //                        System.out.println(zombie);
 //                        System.out.println(sword);
-                        System.out.println("Zombie's health before " + zombie.getHealth());
+//                        System.out.println("Zombie's health before " + zombie.getHealth());
                         zombie.setHealth(zombie.getHealth() - sword.getDamage());
                         //zombie.setFlag(false);
                         gameScreen.getChildren().remove(sword.getImageView());
