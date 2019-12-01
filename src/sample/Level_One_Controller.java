@@ -21,7 +21,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -82,7 +84,7 @@ class MyTimer implements java.lang.Runnable{
             try {
                 i--;
                 Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
-                if(i == 0  && zombies.size() == 0) {
+                if(i == 0) {
                     throw new WinnerException("You Won");
                 }
                 else if(i == 0 && zombies.size() > 0) {
@@ -90,7 +92,7 @@ class MyTimer implements java.lang.Runnable{
                 }
             }
             catch (WinnerException e) {
-                //I don't think you need to do anything for your particular problem
+                final Button winnerButton = new Button("Go to next level");
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -107,24 +109,19 @@ class MyTimer implements java.lang.Runnable{
                         else {
                             fxml = "playScreen5.fxml";
                         }
-                        Button winnerButton = new Button("Go to next level");
+                        //winnerButton = new Button("Go to next level");
+                        gameScene.getChildren().add(winnerButton);
                         winnerButton.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
+                                System.out.println("Hi");
                                 try {
-                                    System.out.println("Here");
-                                    Parent newPane = FXMLLoader.load(getClass().getResource(fxml));
-                                    Scene gamescene = new Scene(newPane);
-                                    Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-                                    window.setScene(gamescene);
-                                    //window.show();
-                                }
-                                catch(Exception e) {
-                                    //do nothing
+                                    Game game = new Game(new Level(2,0),actionEvent,0);
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
                                 }
                             }
                         });
-                        gameScene.getChildren().add(winnerButton);
                     }
                 });
             }
