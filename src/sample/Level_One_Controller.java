@@ -154,9 +154,27 @@ public class Level_One_Controller extends Application implements Initializable, 
     int counter;
     int level;
 
+    int levelVal;
+
     public Level_One_Controller(int a, int level){
         this.deserialized = a;
         this.level = level;
+        if(level==1){
+            levelVal=10;
+        }
+        else if(levelVal==2){
+            levelVal=25;
+        }
+        else if(levelVal==3){
+            levelVal=35;
+        }
+        else if(levelVal==4){
+            levelVal=40;
+        }
+        else {
+            levelVal=50;
+        }
+
     }
 
     public ArrayList<Zombies> zombies = new ArrayList<>();
@@ -180,8 +198,8 @@ public class Level_One_Controller extends Application implements Initializable, 
     }
 
     public void onClickX(MouseEvent event){
-        //System.out.println("x: " + event.getX());
-        //System.out.println("y: "+ event.getY());
+        System.out.println("x: " + event.getX());
+        System.out.println("y: "+ event.getY());
     }
 
     public void generateSword(int x,int y) {
@@ -314,7 +332,6 @@ public class Level_One_Controller extends Application implements Initializable, 
             }
         }
     }
-
 
     public void checkPlantCollision() {
         for(int i = 0; i < plants.size(); i++)
@@ -562,6 +579,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             this.timerX = data.timerX;
             this.flag = data.flag;
             this.seconds = data.seconds;
+            this.level = data.level;
 //            this.gameScreen = data.gameScreen;
 //            this.gridX = data.gridX;
             System.out.println("Success");
@@ -576,6 +594,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         data.timerX = this.timerX;
         data.flag = this.flag;
         data.seconds = this.seconds;
+        data.level = this.level;
         Iterator i = zombies.iterator();
         while(i.hasNext()) {
             Zombies z = (Zombies)(i.next());
@@ -589,7 +608,7 @@ public class Level_One_Controller extends Application implements Initializable, 
         Iterator z = plants.iterator();
         while(z.hasNext()) {
             Plant p = (Plant)(z.next());
-            plants_coodrdinates.put((double)p.yCord,(double)p.xCord);
+            plants_coodrdinates.put((double)p.xCord,(double)p.yCord);
         }
         Iterator k = advices.iterator();
         while(k.hasNext()) {
@@ -679,21 +698,29 @@ public class Level_One_Controller extends Application implements Initializable, 
         t.schedule(new TimerTask() {
             @Override
             public void run() {
+
                 Platform.runLater(()->{
 
-                    if (timerX >= 50){
-                        seconds = 2;
+                    if (timerX >= 10){
+                        seconds = 6;
                     }
-                    timerX += seconds;
-                    if (timerX>=150){
+                    timerX += 1;
+                    if (timerX>=levelVal){
 
-                        t.cancel();
+                        this.cancel();
+//                        this.purge();
 //                    t.notifyAll();
                     }
                     else{
-                        //System.out.println(timerX);
+                        System.out.println(timerX);
                         System.out.println(seconds);
-                        int a = r.nextInt(3);
+                        int a = 0;
+                        if (level==1){
+                            a=0;
+                        }
+                        else if (level>+2) {
+                            a = r.nextInt(3);
+                        }
                         generateZombies(a);
 //                        generateAdvice();
 //                        generateZombies();
@@ -701,7 +728,7 @@ public class Level_One_Controller extends Application implements Initializable, 
 
                 });
             }
-        }, 5000, (seconds+6)*1000);
+        }, 0, (seconds)*1000);
 
         //Makes the Zombies Move
         t.schedule(new TimerTask() {
