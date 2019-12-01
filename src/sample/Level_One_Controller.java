@@ -696,7 +696,7 @@ public class Level_One_Controller extends Application implements Initializable, 
                 Platform.runLater(()->{
                     int i = 0;
                     while(i<swords.size()){
-//                        System.out.println("hi");
+                        System.out.println("hi");
                         Sword s = swords.get(i);
                         s.move();
                         s.getImageView().setX(s.getX());
