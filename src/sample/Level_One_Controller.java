@@ -544,7 +544,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             }
         }
     }
-
+//do nothing
     private void generateAdvice() {
         String img_url = null;
         Image image = null;
