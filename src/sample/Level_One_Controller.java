@@ -109,7 +109,7 @@ class MyTimer implements java.lang.Runnable{
                             public void handle(ActionEvent actionEvent) {
                                 System.out.println("Hi");
                                 try {
-                                    Game game = new Game(new Level(2,0),actionEvent,0);
+                                    Game game = new Game(new Level(nextLevel,0),actionEvent,0);
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
                                 }
@@ -647,6 +647,17 @@ public class Level_One_Controller extends Application implements Initializable, 
         });
     }
 
+    public void checkSwordBoundary() {
+        Iterator i = swords.iterator();
+        while(i.hasNext()){
+            Sword sword = (Sword)i.next();
+            if(sword.getImageView().getX() > 150) {
+                gameScreen.getChildren().remove(sword.getImageView());
+                i.remove();
+            }
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -799,6 +810,7 @@ public class Level_One_Controller extends Application implements Initializable, 
             Platform.runLater(()->{
                 generateAdvice();
                 checkZombieBoundary();
+                checkSwordBoundary();
             });
         }
         },5000,4000);
